@@ -1,0 +1,27 @@
+html, body {
+    margin : 0;
+    padding : 0;
+}
+
+.shipping {
+    width : 100%;
+    height : 50px;
+    border : 1px solid #ffffff;
+    display : flex;
+    align-items: center;
+    justify-content: center;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size: 10px;
+}
+
+.topNav {
+    height: 100px;
+    background-color: #7a7878;
+    color: #ffffff;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+    display: flex;
+    font-family: 'Libre Baskerville', serif;
+    font-size: 30px;
+  }
