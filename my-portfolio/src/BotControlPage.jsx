@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Play, Square, Settings, Code, FileText, AlertCircle, CheckCircle, Clock } from 'lucide-react';
 
-const API_BASE_URL = 'http://localhost:5001/api';
+const API_BASE_URL = 'https://mock-trading-api.onrender.com';
 
 export default function BotControlPage() {
   const [botStatus, setBotStatus] = useState(null);
