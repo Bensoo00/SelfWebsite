@@ -103,10 +103,12 @@ export default function Portfolio() {
   }
 
   return (
-    <div className="min-h-screen relative overflow-hidden" style={{
-      background: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 50%, #a8edea 100%)'
-    }}>
-      
+      <div
+          className="min-h-screen relative overflow-hidden bg-cover bg-center"
+          style={{ backgroundImage: "url('/background.jpg')" }}
+      >
+
+
       {/* Frutiger Aero Background Effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 right-20 w-96 h-96 rounded-full opacity-40" 
