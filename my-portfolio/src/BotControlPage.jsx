@@ -281,10 +281,10 @@ export default function BotControlPage() {
                   }}>
                   <AlertCircle className="w-6 h-6 text-orange-600 flex-shrink-0 mt-1" />
                   <div>
-                    <h4 className="font-bold text-orange-800 mb-1">Paper Trading Mode - 3 Month Minimum Testing</h4>
+                    <h4 className="font-bold text-orange-800 mb-1">Paper Trading Mode - Sample Script</h4>
                     <p className="text-sm text-gray-700">
-                      This bot uses simulated money only. Monitor performance for at least 3 months before 
-                      considering real trading. Past performance does not guarantee future results.
+                      This is simply a sample script that runs a dummy instance of my project. You can enter 'test123' and 'test456' for
+                        the API and secret key, respectively.
                     </p>
                   </div>
                 </div>
