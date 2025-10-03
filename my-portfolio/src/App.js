@@ -3,7 +3,7 @@ import { Terminal, Activity, Code, Briefcase, Mail, Linkedin, TrendingUp, Cpu, D
 import IntegratedTradingBot from './IntegratedTradingBot';
 import BotControlPage from './BotControlPage';
 import VistaWindow from './VistaWindow';
-console.log("Width:", window.innerWidth, "Height:", window.innerHeight);
+import { SpeedInsights } from "@vercel/speed-insights/react"
 
 export default function Portfolio() {
     // ============================================
