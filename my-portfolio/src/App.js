@@ -267,16 +267,17 @@ export default function Portfolio() {
                                 <h3 className="font-bold text-gray-800 mb-2 text-lg">Programming</h3>
                                 <p className="text-gray-700">Python, GoLang, Java, C, Bash, SQL, Assembly</p>
                             </div>
-
-                            <div className="p-5 rounded-2xl shadow-lg border backdrop-blur-sm"
-                                 style={{
-                                     background: 'linear-gradient(135deg, rgba(144,238,144,0.3) 0%, rgba(152,251,152,0.2) 100%)',
-                                     borderColor: 'rgba(255,255,255,0.6)',
-                                     boxShadow: '0 4px 15px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.5)'
-                                 }}>
-                                <h3 className="font-bold text-gray-800 mb-2 text-lg">Technologies</h3>
-                                <p className="text-gray-700">AWS, Git, Agile, Scrum, Jira</p>
-                            </div>
+                            <VistaWindow>
+                                <div className="p-5 rounded-2xl shadow-lg border backdrop-blur-sm"
+                                    style={{
+                                        background: 'linear-gradient(135deg, rgba(144,238,144,0.3) 0%, rgba(152,251,152,0.2) 100%)',
+                                        borderColor: 'rgba(255,255,255,0.6)',
+                                        boxShadow: '0 4px 15px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.5)'
+                                    }}>
+                                    <h3 className="font-bold text-gray-800 mb-2 text-lg">Technologies</h3>
+                                    <p className="text-gray-700">AWS, Git, Agile, Scrum, Jira</p>
+                                </div>
+                            </VistaWindow>
 
                             <div className="p-5 rounded-2xl shadow-lg border backdrop-blur-sm"
                                  style={{
