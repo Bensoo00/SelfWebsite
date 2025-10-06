@@ -12,11 +12,8 @@ export default function Portfolio() {
 
     const [currentPage, setCurrentPage] = useState('home');
     const [osOutput, setOsOutput] = useState([
-        '> Booting BenOS v1.0...',
-        '> Loading kernel modules...',
-        '> Initializing memory segmentation...',
-        '> Setting up interrupt handlers...',
-        '> System ready.'
+        '> Currently Attempting to implement a working version of my OS into this window.',
+        '> Dummy commands are implemented, System ready.'
     ]);
     const [osInput, setOsInput] = useState('');
 
