@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Terminal, Activity, Code, Briefcase, Mail, Linkedin, TrendingUp, Cpu, Droplets, Sparkles, Sun, Cloud, Settings, User } from 'lucide-react';
+import React, { useState } from 'react';
+import { Terminal, Activity, Code, Briefcase, Mail, Linkedin, TrendingUp, Droplets, Sparkles, Sun, Cloud, Settings, User, GraduationCap, Mountain } from 'lucide-react';
 import IntegratedTradingBot from './IntegratedTradingBot';
 import BotControlPage from './BotControlPage';
 import VistaWindow from './VistaWindow';
@@ -11,52 +11,6 @@ export default function Portfolio() {
     // ============================================
 
     const [currentPage, setCurrentPage] = useState('home');
-    const [osOutput, setOsOutput] = useState([
-        '> Currently Attempting to implement a working version of my OS into this window.',
-        '> Dummy commands are implemented, System ready.'
-    ]);
-    const [osInput, setOsInput] = useState('');
-
-    const osTerminalRef = useRef(null);
-
-    // Auto-scroll OS terminal
-    useEffect(() => {
-        if (osTerminalRef.current) {
-            osTerminalRef.current.scrollTop = osTerminalRef.current.scrollHeight;
-        }
-    }, [osOutput]);
-
-    // OS Terminal command handler
-    const handleOsCommand = () => {
-        if (!osInput.trim()) return;
-
-        const newOutput = [...osOutput, `$ ${osInput}`];
-
-        if (osInput.toLowerCase() === 'help') {
-            newOutput.push('Available commands: help, clear, about, mem, process');
-        } else if (osInput.toLowerCase() === 'clear') {
-            setOsOutput([]);
-            setOsInput('');
-            return;
-        } else if (osInput.toLowerCase() === 'about') {
-            newOutput.push('BenOS - Custom x86 Operating System built with C and Assembly');
-        } else if (osInput.toLowerCase() === 'mem') {
-            newOutput.push('Memory: 32MB allocated | Segmentation: Active | Pages: 8192');
-        } else if (osInput.toLowerCase() === 'process') {
-            newOutput.push('PID 1: kernel [running]', 'PID 2: scheduler [running]', 'PID 3: shell [running]');
-        } else {
-            newOutput.push(`Command not found: ${osInput}. Type 'help' for available commands.`);
-        }
-
-        setOsOutput(newOutput);
-        setOsInput('');
-    };
-
-    const handleKeyPress = (e) => {
-        if (e.key === 'Enter') {
-            handleOsCommand();
-        }
-    };
 
     // Render different pages
     if (currentPage === 'bot-control') {
@@ -258,31 +212,26 @@ export default function Portfolio() {
                         </div>
 
                         <div className="grid grid-cols-3 gap-6">
-                            <div className="p-5 rounded-2xl shadow-lg border backdrop-blur-sm"
-                                 style={{
-                                     background: 'linear-gradient(135deg, rgba(135,206,250,0.3) 0%, rgba(173,216,230,0.2) 100%)',
-                                     borderColor: 'rgba(255,255,255,0.6)',
-                                     boxShadow: '0 4px 15px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.5)'
-                                 }}>
-                                <h3 className="font-bold text-gray-800 mb-2 text-lg">Programming</h3>
-                                <p className="text-gray-700">Python, GoLang, Java, C, Bash, SQL, Assembly</p>
-                            </div>
-                            <VistaWindow>
+                            <VistaWindow title="Programming" icon={Code}>
                                 <div className="p-5 rounded-2xl shadow-lg border backdrop-blur-sm">
-                                    <h3 className="font-bold text-gray-800 mb-2 text-lg"></h3>
+                                    <h3 className="font-bold text-gray-800 mb-2 text-lg">Programming</h3>
+                                    <p className="text-gray-700">Python, GoLang, Java, C, Bash, SQL, Assembly</p>
+                                </div>
+                            </VistaWindow>
+
+                            <VistaWindow title="Tools" icon={Settings}>
+                                <div className="p-5 rounded-2xl shadow-lg border backdrop-blur-sm">
+                                    <h3 className="font-bold text-gray-800 mb-2 text-lg">Tools</h3>
                                     <p className="text-gray-700">AWS, Git, Agile, Scrum, Jira</p>
                                 </div>
                             </VistaWindow>
 
-                            <div className="p-5 rounded-2xl shadow-lg border backdrop-blur-sm"
-                                 style={{
-                                     background: 'linear-gradient(135deg, rgba(255,218,185,0.4) 0%, rgba(255,228,196,0.2) 100%)',
-                                     borderColor: 'rgba(255,255,255,0.6)',
-                                     boxShadow: '0 4px 15px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.5)'
-                                 }}>
-                                <h3 className="font-bold text-gray-800 mb-2 text-lg">Education</h3>
-                                <p className="text-gray-700">Drexel University - Software Engineering BS</p>
-                            </div>
+                            <VistaWindow title="Education" icon={GraduationCap}>
+                                <div className="p-5 rounded-2xl shadow-lg border backdrop-blur-sm">
+                                    <h3 className="font-bold text-gray-800 mb-2 text-lg">Education</h3>
+                                    <p className="text-gray-700">Drexel University - Software Engineering BS</p>
+                                </div>
+                            </VistaWindow>
                         </div>
                     </VistaWindow>
                 </div>
@@ -290,6 +239,23 @@ export default function Portfolio() {
                 {/* Experience Section */}
                 <div id="experience" className="mb-8">
                     <div className="space-y-6">
+                        <VistaWindow title="System Administrator - PJM Interconnection (via Yoh)" icon={Briefcase}>
+                            <div className="space-y-3">
+                                <div className="flex justify-between items-center mb-4">
+                                    <h3 className="text-lg font-bold text-gray-800">PJM Interconnection</h3>
+                                    <span className="text-sm text-gray-600 px-3 py-1 bg-gray-100 rounded-full">
+                    March 2026 - September 2026
+                  </span>
+                                </div>
+                                <ul className="space-y-2 text-gray-700">
+                                    <li>• Automated repeatable infrastructure workflows across 30+ RHEL 8/9 hosts using Ansible Automation Platform</li>
+                                    <li>• Integrated Cherwell ITSM and Halo APIs with AAP via Python for dynamic inventory updates</li>
+                                    <li>• Developed YAML-based Ansible playbooks for configuration management, improving deployment efficiency by ~25%</li>
+                                    <li>• Validated 30+ production hosts against PJM's internal Ansible collection for idempotency and reliability</li>
+                                </ul>
+                            </div>
+                        </VistaWindow>
+
                         <VistaWindow title="Information Technology Specialist - UPenn School of Nursing" icon={Briefcase}>
                             <div className="space-y-3">
                                 <div className="flex justify-between items-center mb-4">
@@ -329,34 +295,25 @@ export default function Portfolio() {
                 {/* Projects Section */}
                 <div id="projects" className="mb-8">
                     <div className="grid grid-cols-2 gap-8 mb-8">
-                        {/* OS Terminal */}
-                        <VistaWindow title="Custom x86 Operating System" icon={Cpu}>
-                            <div className="terminal-screen" ref={osTerminalRef}
-                                 style={{
-                                     background: '#000000',
-                                     padding: '16px',
-                                     height: '350px',
-                                     overflowY: 'auto',
-                                     fontFamily: 'Consolas, Monaco, monospace',
-                                     fontSize: '13px',
-                                     color: '#00ff00',
-                                     borderRadius: '4px'
-                                 }}
-                            >
-                                {osOutput.map((line, i) => (
-                                    <div key={i} className="mb-1">{line}</div>
-                                ))}
-                            </div>
-                            <div className="mt-4 flex gap-2 items-center">
-                                <span className="text-green-500 font-mono">$</span>
-                                <input
-                                    type="text"
-                                    value={osInput}
-                                    onChange={(e) => setOsInput(e.target.value)}
-                                    onKeyPress={handleKeyPress}
-                                    className="flex-1 bg-gray-900 text-green-400 font-mono px-3 py-2 rounded-lg border border-gray-700 focus:border-cyan-500 focus:outline-none"
-                                    placeholder="Type 'help' for commands"
-                                />
+                        {/* Hiking Gear Recommender */}
+                        <VistaWindow title="Hiking Gear Recommender" icon={Mountain}>
+                            <div className="text-center py-12">
+                                <Mountain className="w-16 h-16 mx-auto mb-4 text-gray-400" />
+                                <p className="text-gray-600 mb-6">
+                                    Full-stack gear recommendation app built with Flask, React, PostgreSQL, and the Claude API.
+                                    <br />
+                                    Enter trip parameters and get a ranked kit based on destination, duration, and live weather.
+                                </p>
+                                <button
+                                    disabled
+                                    className="px-6 py-3 rounded-xl font-bold text-white cursor-not-allowed opacity-70"
+                                    style={{
+                                        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                                        boxShadow: '0 4px 15px rgba(102, 126, 234, 0.4)'
+                                    }}
+                                >
+                                    Live Demo Coming Soon
+                                </button>
                             </div>
                         </VistaWindow>
 
