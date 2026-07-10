@@ -375,6 +375,7 @@ export default function Portfolio() {
                     <p className="text-sm mt-1">267-836-3615 | bennnguyen22@gmail.com</p>
                 </div>
             </footer>
+            <SpeedInsights />
         </div>
     );
 }

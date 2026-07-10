@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from 'recharts';
-import { Activity, TrendingUp, DollarSign, Play, Square, Settings } from 'lucide-react';
+import { XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from 'recharts';
+import { Activity, TrendingUp, DollarSign } from 'lucide-react';
 
 const API_BASE_URL = 'https://mock-trading-api.onrender.com/api';
 
