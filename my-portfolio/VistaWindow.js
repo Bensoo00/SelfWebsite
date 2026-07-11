@@ -1,6 +1,14 @@
 // VistaWindow.js
-import React from 'react';
+// Draggable, free-floating Frutiger Aero window.
+// - Drag by the title bar (mouse or touch)
+// - Double-click the title bar to snap the window back home
+// - Idle "bobbing on water" float, randomized per window so they drift out of sync
+// - Windows keep their slot in the page layout, so structure is preserved
+import React, { useState, useRef } from 'react';
 import { X, Minimize, Maximize2 } from 'lucide-react';
+
+// Shared counter so the most recently touched window floats above the others
+let topZ = 10;
 
 export default function VistaWindow({
                                         title = "Window",
@@ -9,55 +17,126 @@ export default function VistaWindow({
                                         className = "",
                                         style = {}
                                     }) {
+    const [offset, setOffset] = useState({ x: 0, y: 0 });
+    const [dragging, setDragging] = useState(false);
+    const [zIndex, setZIndex] = useState(1);
+    const dragStart = useRef({ px: 0, py: 0, ox: 0, oy: 0 });
+
+    // Randomize the idle float per window instance so the page feels alive,
+    // not like everything is bolted to one metronome.
+    const float = useRef({
+        dur: (6 + Math.random() * 5).toFixed(2) + 's',
+        delay: (-Math.random() * 8).toFixed(2) + 's',
+    });
+
+    const bringToFront = () => {
+        topZ += 1;
+        setZIndex(topZ);
+    };
+
+    const handlePointerDown = (e) => {
+        // Only left click / primary touch, and don't steal drags from nested windows
+        if (e.button !== undefined && e.button !== 0) return;
+        e.stopPropagation();
+        bringToFront();
+        setDragging(true);
+        dragStart.current = { px: e.clientX, py: e.clientY, ox: offset.x, oy: offset.y };
+        e.currentTarget.setPointerCapture(e.pointerId);
+    };
+
+    const handlePointerMove = (e) => {
+        if (!dragging) return;
+        setOffset({
+            x: dragStart.current.ox + (e.clientX - dragStart.current.px),
+            y: dragStart.current.oy + (e.clientY - dragStart.current.py),
+        });
+    };
+
+    const handlePointerUp = (e) => {
+        setDragging(false);
+        try { e.currentTarget.releasePointerCapture(e.pointerId); } catch { /* already released */ }
+    };
+
+    // Double-click the title bar: bubble back home with a springy snap
+    const handleDoubleClick = (e) => {
+        e.stopPropagation();
+        setOffset({ x: 0, y: 0 });
+    };
+
+    const stopDrag = (e) => e.stopPropagation();
+
     return (
-        <div className={`vista-window ${className}`} style={style}>
-            {/* Window Frame */}
+        <div
+            className={`vista-window ${dragging ? 'vista-dragging' : ''} ${className}`}
+            style={{
+                ...style,
+                position: 'relative',
+                zIndex,
+                transform: `translate3d(${offset.x}px, ${offset.y}px, 0)`,
+                transition: dragging ? 'none' : 'transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)',
+                willChange: 'transform',
+            }}
+            onPointerDown={bringToFront}
+        >
+            {/* Floating frame — the idle bob lives on this element so it
+                composes cleanly with the drag translate on the wrapper */}
             <div
-                className="vista-frame"
+                className="vista-frame vista-float"
                 style={{
-                    background: 'rgba(0, 0, 0, 0.1)',
-                    borderRadius: '3px',
-                    padding: '5px',
-                    boxShadow: '0 10px 40px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(0, 0, 0, 0.1)',
+                    '--float-dur': float.current.dur,
+                    '--float-delay': float.current.delay,
+                    background: 'linear-gradient(180deg, rgba(255,255,255,0.35) 0%, rgba(190,225,245,0.22) 100%)',
+                    borderRadius: '18px',
+                    padding: '6px',
+                    border: '1px solid rgba(255,255,255,0.55)',
+                    boxShadow: dragging
+                        ? '0 30px 70px rgba(20, 60, 100, 0.4), 0 0 0 1px rgba(255,255,255,0.3), inset 0 1px 0 rgba(255,255,255,0.6)'
+                        : '0 14px 45px rgba(20, 60, 100, 0.25), 0 0 0 1px rgba(255,255,255,0.25), inset 0 1px 0 rgba(255,255,255,0.6)',
+                    backdropFilter: 'blur(10px)',
+                    WebkitBackdropFilter: 'blur(10px)',
+                    transition: 'box-shadow 0.3s ease',
                 }}
             >
-                {/* Glass effect background */}
                 <div
                     style={{
-                        background: 'transparent',
-                        borderRadius: '7px 7px 6px 6px',
+                        borderRadius: '13px',
                         overflow: 'hidden',
                         position: 'relative',
                     }}
                 >
-                    {/* Title Bar */}
+                    {/* Title Bar — the drag handle */}
                     <div
                         className="vista-titlebar"
+                        onPointerDown={handlePointerDown}
+                        onPointerMove={handlePointerMove}
+                        onPointerUp={handlePointerUp}
+                        onPointerCancel={handlePointerUp}
+                        onDoubleClick={handleDoubleClick}
+                        title="Drag me around — double-click to snap back"
                         style={{
                             background: `linear-gradient(180deg,
-                            rgba(255, 255, 255, 0.03) 0%,
-                            rgba(255, 255, 255, 0.01) 50%,
-                            rgba(0, 0, 0, 0.2) 100%),
+                            rgba(255, 255, 255, 0.35) 0%,
+                            rgba(255, 255, 255, 0.08) 49%,
+                            rgba(30, 90, 140, 0.25) 50%,
+                            rgba(20, 70, 115, 0.3) 100%),
                             linear-gradient(180deg,
-                            rgba(75, 158, 215, 0.05) 0%,
-                            rgba(41, 112, 169, 0.05) 49%,
-                            rgba(35, 90, 135, 0.05) 50%,
-                            rgba(30, 77, 112, 0.05) 100%)`,
+                            rgba(122, 199, 227, 0.5) 0%,
+                            rgba(74, 149, 184, 0.5) 100%)`,
                             backdropFilter: "blur(12px)",
                             WebkitBackdropFilter: "blur(12px)",
-                            height: "30px",
+                            height: "32px",
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "space-between",
-                            padding: "0 8px",
+                            padding: "0 10px",
                             position: "relative",
-                            cursor: "default",
+                            cursor: dragging ? "grabbing" : "grab",
                             userSelect: "none",
+                            touchAction: "none",
                         }}
                     >
-
                         {/* Left side - Icon and Title */}
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', pointerEvents: 'none' }}>
                             {Icon && <Icon style={{ width: '16px', height: '16px', color: 'white' }} />}
                             <span
                                 style={{
@@ -72,8 +151,8 @@ export default function VistaWindow({
               </span>
                         </div>
 
-                        {/* Right side - Window Controls */}
-                        <div style={{ display: 'flex', gap: '2px' }}>
+                        {/* Right side - Window Controls (decorative, but they shouldn't start a drag) */}
+                        <div style={{ display: 'flex', gap: '2px' }} onPointerDown={stopDrag}>
                             {/* Minimize Button */}
                             <button
                                 className="vista-control-btn"
@@ -81,7 +160,7 @@ export default function VistaWindow({
                                     width: '24px',
                                     height: '18px',
                                     border: '1px solid rgba(0, 0, 0, 0.3)',
-                                    borderRadius: '3px',
+                                    borderRadius: '6px',
                                     display: 'flex',
                                     alignItems: 'center',
                                     justifyContent: 'center',
@@ -109,7 +188,7 @@ export default function VistaWindow({
                                     width: '24px',
                                     height: '18px',
                                     border: '1px solid rgba(0, 0, 0, 0.3)',
-                                    borderRadius: '3px',
+                                    borderRadius: '6px',
                                     display: 'flex',
                                     alignItems: 'center',
                                     justifyContent: 'center',
@@ -137,7 +216,7 @@ export default function VistaWindow({
                                     width: '45px',
                                     height: '18px',
                                     border: '1px solid rgba(0, 0, 0, 0.3)',
-                                    borderRadius: '3px',
+                                    borderRadius: '6px',
                                     display: 'flex',
                                     alignItems: 'center',
                                     justifyContent: 'center',
@@ -166,15 +245,15 @@ export default function VistaWindow({
                     <div
                         className="vista-content"
                         style={{
-                            background: '#ffffff',
-                            border: '1px solid #d1d1d1',
+                            background: 'rgba(255, 255, 255, 0.94)',
+                            border: '1px solid rgba(255,255,255,0.7)',
                             borderTop: 'none',
-                            minHeight: '200px',
+                            minHeight: '120px',
                             padding: '16px',
                             position: 'relative',
                         }}
                     >
-                        {/* Subtle glass effect on content */}
+                        {/* Glossy aero highlight sweeping across the top */}
                         <div
                             style={{
                                 position: 'absolute',
@@ -182,7 +261,7 @@ export default function VistaWindow({
                                 left: 0,
                                 right: 0,
                                 height: '100px',
-                                background: 'linear-gradient(180deg, rgba(240,240,240,0.5) 0%, transparent 100%)',
+                                background: 'linear-gradient(180deg, rgba(225,243,252,0.55) 0%, transparent 100%)',
                                 pointerEvents: 'none',
                             }}
                         />

@@ -98,7 +98,7 @@ export default function IntegratedTradingBot() {
           }}>
           <div className="px-6 py-4 flex items-center justify-between border-b"
             style={{
-              background: 'linear-gradient(135deg, #11998e 0%, #38ef7d 100%)',
+              background: 'linear-gradient(180deg, #7ac7e3 0%, #4a95b8 49%, #3d7ea0 50%, #2a6888 100%)',
               borderBottom: '1px solid rgba(255,255,255,0.3)',
               boxShadow: '0 2px 10px rgba(0,0,0,0.1)'
             }}>
@@ -202,7 +202,7 @@ export default function IntegratedTradingBot() {
         }}>
         <div className="px-6 py-4 border-b"
           style={{
-            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+            background: 'linear-gradient(180deg, #84c6d9 0%, #5aa5c3 49%, #4a8fb0 50%, #36749a 100%)',
             borderBottom: '1px solid rgba(255,255,255,0.3)'
           }}>
           <h2 className="text-xl font-bold text-white">Real-Time Performance</h2>
@@ -215,8 +215,8 @@ export default function IntegratedTradingBot() {
               <AreaChart data={chartData}>
                 <defs>
                   <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#667eea" stopOpacity={0.3}/>
-                    <stop offset="95%" stopColor="#667eea" stopOpacity={0}/>
+                    <stop offset="5%" stopColor="#3d9bc7" stopOpacity={0.3}/>
+                    <stop offset="95%" stopColor="#3d9bc7" stopOpacity={0}/>
                   </linearGradient>
                 </defs>
                 <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
@@ -242,7 +242,7 @@ export default function IntegratedTradingBot() {
                 <Area 
                   type="monotone" 
                   dataKey="value" 
-                  stroke="#667eea" 
+                  stroke="#3d9bc7" 
                   strokeWidth={3}
                   fill="url(#colorValue)"
                   name="Portfolio Value"

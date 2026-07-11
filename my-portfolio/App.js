@@ -4,6 +4,7 @@ import IntegratedTradingBot from './IntegratedTradingBot';
 import BotControlPage from './BotControlPage';
 import VistaWindow from './VistaWindow';
 import { SpeedInsights } from "@vercel/speed-insights/react"
+import './App.css';
 
 export default function Portfolio() {
     // ============================================
@@ -12,66 +13,14 @@ export default function Portfolio() {
 
     const [currentPage, setCurrentPage] = useState('home');
 
-    // Render different pages
-    if (currentPage === 'bot-control') {
-        return (
-            <div>
-                {/* Navigation Bar */}
-                <nav className="relative z-10 backdrop-blur-md border-b shadow-lg"
-                     style={{
-                         background: 'transparent',
-                         borderBottom: '1px solid rgba(255,255,255,0.8)',
-                         boxShadow: '0 4px 30px rgba(0,0,0,0.1)',
-                         borderRadius: '7px 7px 6px 6px',                     }}>
-                    <div className="max-w-7xl mx-auto px-8 py-5">
-                        <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-3">
-                                <div
-                                    className="w-36 h-36 rounded-full overflow-hidden relative shadow-2xl"
-                                    style={{
-                                        boxShadow: '0 10px 40px rgba(102,126,234,0.5), inset 0 0 20px rgba(255,255,255,0.3)',
-                                    }}
-                                >
-                                    <img
-                                        src="/pibb.jpg"
-                                        alt="Logo"
-                                        className="absolute inset-0 w-full h-full object-cover"
-                                    />
-
-                                {/* Optional overlay icon */}
-                                    <Code className="w-6 h-6 text-white absolute" />
-                                </div>
-
-                                <div className="text-2xl font-bold" style={{
-                                    background: 'transparent',
-                                    WebkitBackgroundClip: 'text',
-                                    WebkitTextFillColor: 'transparent',
-                                    fontFamily: "Segoe UI-MONOSPACE",
-                                }}>
-                                    Benjamin Nguyen
-                                </div>
-                            </div>
-
-                            <div className="flex gap-8">
-                                <button onClick={() => setCurrentPage('home')} className="text-gray-700 hover:text-purple-600 transition-colors font-semibold">Home</button>
-                                <button onClick={() => setCurrentPage('bot-control')} className="text-purple-600 font-semibold">Bot Control</button>
-                            </div>
-                        </div>
-                    </div>
-                </nav>
-
-                <BotControlPage />
-            </div>
-        );
-    }
-
     return (
         <div
             className="relative overflow-hidden bg-cover bg-center"
             style={{ backgroundImage: "url('/future2.jpg')",
                 backgroundSize: "cover",       // Ensures the image covers the whole div
                 backgroundPosition: "center",  // Centers the image
-                backgroundRepeat: "no-repeat"  // Prevent tiling
+                backgroundRepeat: "no-repeat", // Prevent tiling
+                minHeight: "100vh"
                     }}
         >
             {/* Frutiger Aero Background Effects */}
@@ -117,7 +66,7 @@ export default function Portfolio() {
                  }}>
                 <div className="max-w-7xl mx-auto px-8 py-2">
                     <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-3 cursor-pointer" onClick={() => setCurrentPage('home')}>
                             <div className="w-16 h-16 rounded-full flex items-center justify-center shadow-2xl relative overflow-hidden"
                                  style={{
                                  }}>
@@ -144,10 +93,10 @@ export default function Portfolio() {
                             fontFamily: "Segoe UI",
                             fontSize: '1.35rem',
                         }}>
-                            <a href="#about" className="text-gray-700 hover:text-blue-500 transition-colors font-semibold">About</a>
-                            <a href="#experience" className="text-gray-700 hover:text-blue-500 transition-colors font-semibold">Experience</a>
-                            <a href="#projects" className="text-gray-700 hover:text-blue-500 transition-colors font-semibold">Projects</a>
-                            <button onClick={() => setCurrentPage('bot-control')} className="text-gray-700 hover:text-blue-500 transition-colors font-semibold flex items-center gap-2">
+                            <a href="#about" onClick={() => setCurrentPage('home')} className="text-gray-700 hover:text-blue-500 transition-colors font-semibold">About</a>
+                            <a href="#experience" onClick={() => setCurrentPage('home')} className="text-gray-700 hover:text-blue-500 transition-colors font-semibold">Experience</a>
+                            <a href="#projects" onClick={() => setCurrentPage('home')} className="text-gray-700 hover:text-blue-500 transition-colors font-semibold">Projects</a>
+                            <button onClick={() => setCurrentPage('bot-control')} className={`${currentPage === 'bot-control' ? 'text-blue-500' : 'text-gray-700'} hover:text-blue-500 transition-colors font-semibold flex items-center gap-2`}>
                                 Bot Control
                             </button>
                         </div>
@@ -156,6 +105,11 @@ export default function Portfolio() {
             </nav>
 
             {/* Main Content */}
+            {currentPage === 'bot-control' ? (
+                <div className="relative z-10 max-w-7xl mx-auto px-8 py-12">
+                    <BotControlPage />
+                </div>
+            ) : (
             <div className="relative z-10 max-w-7xl mx-auto px-8 py-12">
 
                 {/* About Me Section */}
@@ -361,6 +315,7 @@ export default function Portfolio() {
                     </VistaWindow>
                 </div>
             </div>
+            )}
 
             {/* Footer */}
             <footer className="relative z-10 backdrop-blur-md border-t mt-16"
