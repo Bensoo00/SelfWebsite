@@ -1,0 +1,80 @@
+.App {
+  text-align: center;
+}
+
+/* ============================================
+   Frutiger Aero floating windows
+   ============================================ */
+
+/* Gentle "bobbing on water" idle drift. Duration and delay are
+   randomized per window via CSS variables so they float out of sync. */
+.vista-float {
+  animation: vistaFloat var(--float-dur, 8s) ease-in-out var(--float-delay, 0s) infinite;
+}
+
+/* Freeze the bob while the user is dragging so the window
+   tracks the cursor exactly */
+.vista-dragging .vista-float {
+  animation-play-state: paused;
+}
+
+@keyframes vistaFloat {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-7px) rotate(0.35deg);
+  }
+  50% {
+    transform: translateY(-3px) rotate(0deg);
+  }
+  75% {
+    transform: translateY(-9px) rotate(-0.35deg);
+  }
+}
+
+/* Accessibility: no bobbing or springy snap for users who opt out of motion */
+@media (prefers-reduced-motion: reduce) {
+  .vista-float {
+    animation: none;
+  }
+  .vista-window {
+    transition: none !important;
+  }
+}
+
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

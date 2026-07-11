@@ -1,0 +1,5 @@
+<img
+        src="/myLogo.png"
+        alt="My Logo"
+        className="w-16 h-16"
+/>
