@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Play, Square, Settings, Code, FileText, AlertCircle, CheckCircle, Clock } from 'lucide-react';
+import VistaWindow from './VistaWindow';
 
 const API_BASE_URL = 'https://mock-trading-api.onrender.com/api';
 
@@ -95,34 +96,19 @@ export default function BotControlPage() {
   };
 
   return (
-    <div className="min-h-screen p-8" style={{
-      background: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 50%, #a8edea 100%)'
-    }}>
-      <div className="max-w-7xl mx-auto">
+    <div>
+      <div className="max-w-7xl mx-auto space-y-8">
         {/* Header */}
-        <div className="backdrop-blur-xl rounded-3xl shadow-2xl p-8 mb-8 border"
-          style={{
-            background: 'linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.85) 100%)',
-            borderColor: 'rgba(255,255,255,0.9)',
-            boxShadow: '0 8px 32px rgba(0,0,0,0.15)'
-          }}>
-          <h1 className="text-4xl font-bold mb-2" style={{ 
-            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent'
-          }}>
+        <VistaWindow title="Trading Bot Control Center" icon={Settings}>
+          <h1 className="text-4xl font-bold mb-2 text-gray-700" style={{ fontFamily: 'Segoe UI' }}>
             Trading Bot Control Center
           </h1>
           <p className="text-gray-600">Manage, monitor, and configure your AI trading bot</p>
-        </div>
+        </VistaWindow>
 
         {/* Tab Navigation */}
-        <div className="backdrop-blur-xl rounded-3xl shadow-2xl mb-8 border overflow-hidden"
-          style={{
-            background: 'linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.85) 100%)',
-            borderColor: 'rgba(255,255,255,0.9)'
-          }}>
-          <div className="flex border-b" style={{ borderColor: 'rgba(0,0,0,0.08)' }}>
+        <VistaWindow title="Bot Console" icon={Code}>
+          <div className="flex border-b rounded-t-xl overflow-hidden" style={{ borderColor: 'rgba(0,0,0,0.08)' }}>
             {[
               { id: 'control', label: 'Control Panel', icon: Settings },
               { id: 'code', label: 'Code & Scripts', icon: Code },
@@ -137,7 +123,7 @@ export default function BotControlPage() {
                     : 'text-gray-600 hover:text-gray-800'
                 }`}
                 style={activeTab === tab.id ? {
-                  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+                  background: 'linear-gradient(180deg, #7ac7e3 0%, #4a95b8 49%, #3d7ea0 50%, #2a6888 100%)'
                 } : {}}
               >
                 <tab.icon className="w-5 h-5" />
@@ -211,7 +197,7 @@ export default function BotControlPage() {
                         placeholder="Alpaca API Key"
                         value={config.alpaca_key}
                         onChange={(e) => setConfig({...config, alpaca_key: e.target.value})}
-                        className="px-4 py-3 rounded-xl border-2 focus:border-purple-500 focus:outline-none"
+                        className="px-4 py-3 rounded-xl border-2 focus:border-sky-500 focus:outline-none"
                         style={{ borderColor: 'rgba(0,0,0,0.1)' }}
                       />
                       <input
@@ -219,7 +205,7 @@ export default function BotControlPage() {
                         placeholder="Alpaca Secret Key"
                         value={config.alpaca_secret}
                         onChange={(e) => setConfig({...config, alpaca_secret: e.target.value})}
-                        className="px-4 py-3 rounded-xl border-2 focus:border-purple-500 focus:outline-none"
+                        className="px-4 py-3 rounded-xl border-2 focus:border-sky-500 focus:outline-none"
                         style={{ borderColor: 'rgba(0,0,0,0.1)' }}
                       />
                       <input
@@ -227,7 +213,7 @@ export default function BotControlPage() {
                         placeholder="Ticker (e.g., AAPL)"
                         value={config.ticker}
                         onChange={(e) => setConfig({...config, ticker: e.target.value})}
-                        className="px-4 py-3 rounded-xl border-2 focus:border-purple-500 focus:outline-none"
+                        className="px-4 py-3 rounded-xl border-2 focus:border-sky-500 focus:outline-none"
                         style={{ borderColor: 'rgba(0,0,0,0.1)' }}
                       />
                       <input
@@ -235,14 +221,14 @@ export default function BotControlPage() {
                         placeholder="Check Interval (seconds)"
                         value={config.check_interval}
                         onChange={(e) => setConfig({...config, check_interval: parseInt(e.target.value)})}
-                        className="px-4 py-3 rounded-xl border-2 focus:border-purple-500 focus:outline-none"
+                        className="px-4 py-3 rounded-xl border-2 focus:border-sky-500 focus:outline-none"
                         style={{ borderColor: 'rgba(0,0,0,0.1)' }}
                       />
                     </div>
                     <button
                       onClick={initializeBot}
                       className="w-full py-3 rounded-xl font-bold text-white transition-all hover:scale-105"
-                      style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}
+                      style={{ background: 'linear-gradient(180deg, #7ac7e3 0%, #4a95b8 49%, #3d7ea0 50%, #2a6888 100%)' }}
                     >
                       Initialize Bot
                     </button>
@@ -307,27 +293,27 @@ export default function BotControlPage() {
                       <h4 className="font-bold text-lg text-gray-800 mb-2">Backend (Python)</h4>
                       <div className="space-y-2 ml-4">
                         <div className="p-4 rounded-xl bg-gray-50 border border-gray-200">
-                          <p className="font-mono text-sm font-bold text-purple-700 mb-1">trading_api.py</p>
+                          <p className="font-mono text-sm font-bold text-sky-700 mb-1">trading_api.py</p>
                           <p className="text-sm text-gray-600">Flask REST API server that manages the trading bot lifecycle</p>
                           <div className="mt-2 flex flex-wrap gap-2">
                             <span className="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded">Flask</span>
                             <span className="px-2 py-1 bg-green-100 text-green-700 text-xs rounded">Alpaca API</span>
-                            <span className="px-2 py-1 bg-purple-100 text-purple-700 text-xs rounded">Threading</span>
+                            <span className="px-2 py-1 bg-sky-100 text-sky-700 text-xs rounded">Threading</span>
                           </div>
                         </div>
 
                         <div className="p-4 rounded-xl bg-gray-50 border border-gray-200">
-                          <p className="font-mono text-sm font-bold text-purple-700 mb-1">train_model.py</p>
+                          <p className="font-mono text-sm font-bold text-sky-700 mb-1">train_model.py</p>
                           <p className="text-sm text-gray-600">Trains PPO reinforcement learning model on historical stock data</p>
                           <div className="mt-2 flex flex-wrap gap-2">
                             <span className="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded">Stable-Baselines3</span>
                             <span className="px-2 py-1 bg-green-100 text-green-700 text-xs rounded">PPO</span>
-                            <span className="px-2 py-1 bg-purple-100 text-purple-700 text-xs rounded">PyTorch</span>
+                            <span className="px-2 py-1 bg-sky-100 text-sky-700 text-xs rounded">PyTorch</span>
                           </div>
                         </div>
 
                         <div className="p-4 rounded-xl bg-gray-50 border border-gray-200">
-                          <p className="font-mono text-sm font-bold text-purple-700 mb-1">env/tradingEnv.py</p>
+                          <p className="font-mono text-sm font-bold text-sky-700 mb-1">env/tradingEnv.py</p>
                           <p className="text-sm text-gray-600">Custom Gymnasium environment for stock trading simulation</p>
                           <div className="mt-2 flex flex-wrap gap-2">
                             <span className="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded">Gymnasium</span>
@@ -336,12 +322,12 @@ export default function BotControlPage() {
                         </div>
 
                         <div className="p-4 rounded-xl bg-gray-50 border border-gray-200">
-                          <p className="font-mono text-sm font-bold text-purple-700 mb-1">fetchData.py</p>
+                          <p className="font-mono text-sm font-bold text-sky-700 mb-1">fetchData.py</p>
                           <p className="text-sm text-gray-600">Fetches stock data and calculates technical indicators (RSI, MACD, SMA)</p>
                           <div className="mt-2 flex flex-wrap gap-2">
                             <span className="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded">yfinance</span>
                             <span className="px-2 py-1 bg-green-100 text-green-700 text-xs rounded">Pandas</span>
-                            <span className="px-2 py-1 bg-purple-100 text-purple-700 text-xs rounded">TextBlob NLP</span>
+                            <span className="px-2 py-1 bg-sky-100 text-sky-700 text-xs rounded">TextBlob NLP</span>
                           </div>
                         </div>
                       </div>
@@ -352,17 +338,17 @@ export default function BotControlPage() {
                       <h4 className="font-bold text-lg text-gray-800 mb-2">Frontend (React)</h4>
                       <div className="space-y-2 ml-4">
                         <div className="p-4 rounded-xl bg-gray-50 border border-gray-200">
-                          <p className="font-mono text-sm font-bold text-purple-700 mb-1">IntegratedTradingBot.jsx</p>
+                          <p className="font-mono text-sm font-bold text-sky-700 mb-1">IntegratedTradingBot.jsx</p>
                           <p className="text-sm text-gray-600">Real-time dashboard component with live feed and performance charts</p>
                           <div className="mt-2 flex flex-wrap gap-2">
                             <span className="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded">React Hooks</span>
                             <span className="px-2 py-1 bg-green-100 text-green-700 text-xs rounded">Recharts</span>
-                            <span className="px-2 py-1 bg-purple-100 text-purple-700 text-xs rounded">REST API</span>
+                            <span className="px-2 py-1 bg-sky-100 text-sky-700 text-xs rounded">REST API</span>
                           </div>
                         </div>
 
                         <div className="p-4 rounded-xl bg-gray-50 border border-gray-200">
-                          <p className="font-mono text-sm font-bold text-purple-700 mb-1">BotControlPage.jsx</p>
+                          <p className="font-mono text-sm font-bold text-sky-700 mb-1">BotControlPage.jsx</p>
                           <p className="text-sm text-gray-600">Full control panel for managing bot configuration and execution</p>
                           <div className="mt-2 flex flex-wrap gap-2">
                             <span className="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded">React State</span>
@@ -532,7 +518,7 @@ macd = exp1 - exp2`}</pre>
                         }`}>
                           {api.method}
                         </span>
-                        <code className="font-mono text-sm text-purple-700 flex-1">{api.endpoint}</code>
+                        <code className="font-mono text-sm text-sky-700 flex-1">{api.endpoint}</code>
                         <span className="text-sm text-gray-600">{api.desc}</span>
                       </div>
                     ))}
@@ -541,7 +527,7 @@ macd = exp1 - exp2`}</pre>
               </div>
             )}
           </div>
-        </div>
+        </VistaWindow>
       </div>
     </div>
   );

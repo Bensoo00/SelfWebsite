@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Terminal, Activity, Code, Briefcase, Mail, Linkedin, TrendingUp, Droplets, Sparkles, Sun, Cloud, Settings, User, GraduationCap, Mountain } from 'lucide-react';
 import IntegratedTradingBot from './IntegratedTradingBot';
-import BotControlPage from './BotControlPage';
+import BotControlPage from '../BotControlPage';
 import VistaWindow from './VistaWindow';
 import { SpeedInsights } from "@vercel/speed-insights/react"
 import './App.css';
