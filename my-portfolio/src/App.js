@@ -121,7 +121,7 @@ export default function Portfolio() {
                                      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                                      boxShadow: '0 10px 40px rgba(102,126,234,0.5), inset 0 0 20px rgba(255,255,255,0.3)'
                                  }}>
-                                <img src="/pibb.jpg" alt="Logo" className="w-20 h-20 relative z-10" style={{
+                                <img src="/bear.jpg" alt="Logo" className="w-20 h-20 relative z-10" style={{
                                     height: '120%',
                                     width: '120%',
                                     position: 'absolute',
