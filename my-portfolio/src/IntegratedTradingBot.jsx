@@ -97,7 +97,7 @@ export default function IntegratedTradingBot() {
   };
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-5">
       {/* LEFT COLUMN: Live Feed + Mini Stats */}
       <div className="space-y-6">
         {/* Live Trading Feed */}
@@ -128,7 +128,7 @@ export default function IntegratedTradingBot() {
           
           <div 
             ref={tradingChatRef}
-            className="p-6 h-80 overflow-y-auto space-y-3"
+            className="p-4 h-64 overflow-y-auto space-y-3"
           >
             {connection === 'connecting' && (
               <div className="h-full flex flex-col items-center justify-center text-gray-500 text-center px-4">
@@ -238,7 +238,7 @@ export default function IntegratedTradingBot() {
 
         <div className="p-6">
           {chartData.length > 0 ? (
-            <ResponsiveContainer width="100%" height={400}>
+            <ResponsiveContainer width="100%" height={280}>
               <AreaChart data={chartData}>
                 <defs>
                   <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
@@ -277,13 +277,13 @@ export default function IntegratedTradingBot() {
               </AreaChart>
             </ResponsiveContainer>
           ) : connection === 'unreachable' ? (
-            <div className="h-96 flex flex-col items-center justify-center text-gray-400 text-center px-4">
+            <div className="h-64 flex flex-col items-center justify-center text-gray-400 text-center px-4">
               <WifiOff className="w-16 h-16 mb-4 opacity-30" />
               <p className="text-lg font-semibold">Live data unavailable right now</p>
               <p className="text-sm mt-2">The free-tier demo server is offline. Try again in a few minutes.</p>
             </div>
           ) : (
-            <div className="h-96 flex flex-col items-center justify-center text-gray-400 text-center px-4">
+            <div className="h-64 flex flex-col items-center justify-center text-gray-400 text-center px-4">
               <Loader2 className="w-16 h-16 mb-4 opacity-40 animate-spin" />
               <p className="text-lg font-semibold">Loading live performance data...</p>
               <p className="text-sm mt-2">Waking up the demo server — usually about 30 seconds</p>

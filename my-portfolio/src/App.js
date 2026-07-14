@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Terminal, Activity, Code, Briefcase, Mail, Linkedin, TrendingUp, Droplets, Sparkles, Sun, Cloud, Settings, User, GraduationCap, Mountain, FileText, Github, Store, FolderOpen, Bot } from 'lucide-react';
 
 import IntegratedTradingBot from './IntegratedTradingBot';
@@ -21,6 +21,28 @@ export default function Portfolio() {
 
     const [currentPage, setCurrentPage] = useState('home');
 
+    // Vista-style boot screen shown on load: 'booting' -> 'fading' -> 'done'.
+    // Skipped entirely for users who prefer reduced motion.
+    const [bootStage, setBootStage] = useState(() =>
+        typeof window !== 'undefined' &&
+        window.matchMedia &&
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches
+            ? 'done'
+            : 'booting'
+    );
+
+    useEffect(() => {
+        if (bootStage !== 'booting') return;
+        const fadeTimer = setTimeout(() => setBootStage('fading'), 2400);
+        return () => clearTimeout(fadeTimer);
+    }, [bootStage]);
+
+    useEffect(() => {
+        if (bootStage !== 'fading') return;
+        const doneTimer = setTimeout(() => setBootStage('done'), 800);
+        return () => clearTimeout(doneTimer);
+    }, [bootStage]);
+
     return (
         <div
             className="relative overflow-hidden bg-cover bg-center"
@@ -28,9 +50,36 @@ export default function Portfolio() {
                 backgroundSize: "cover",       // Ensures the image covers the whole div
                 backgroundPosition: "center",  // Centers the image
                 backgroundRepeat: "no-repeat", // Prevent tiling
-                minHeight: "100vh"
+                    minHeight: "100vh"
                     }}
         >
+            {/* Vista Boot Screen */}
+            {bootStage !== 'done' && (
+                <div
+                    className="fixed inset-0 z-[100] bg-black flex flex-col items-center justify-center cursor-pointer select-none"
+                    style={{
+                        fontFamily: 'Segoe UI, Tahoma, sans-serif',
+                        transition: 'opacity 0.8s ease',
+                        opacity: bootStage === 'fading' ? 0 : 1,
+                    }}
+                    onClick={() => setBootStage('done')}
+                    title="Click to skip"
+                >
+                    <div className="boot-orb w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden mb-12">
+                        <img src="/vista.jpg" alt="" className="w-full h-full object-cover" />
+                    </div>
+                    <div className="boot-track">
+                        <div className="boot-blocks">
+                            <span className="boot-block" />
+                            <span className="boot-block" />
+                            <span className="boot-block" />
+                        </div>
+                    </div>
+                    <p className="text-gray-300 mt-8 text-sm tracking-wider">Starting bennguyen.net...</p>
+                    <p className="absolute bottom-8 text-gray-600 text-xs">&copy; 2026 Benjamin Nguyen</p>
+                </div>
+            )}
+
             {/* Frutiger Aero Background Effects */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 <div className="absolute top-20 right-20 w-96 h-96 rounded-full opacity-40"
@@ -135,10 +184,10 @@ export default function Portfolio() {
             <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 pt-6 md:pt-10 pb-8 md:pb-12">
 
                 {/* About Me Section */}
-                <div id="about" className="mb-8 scroll-mt-6">
+                <div id="about" className="mb-6 scroll-mt-6">
                     <VistaWindow title="About Me" icon={User}>
-                        <div className="flex flex-col md:flex-row items-center gap-6 md:gap-8 mb-8 text-center md:text-left">
-                            <div className="w-28 h-28 md:w-36 md:h-36 flex-shrink-0 rounded-full flex items-center justify-center shadow-2xl relative overflow-hidden"
+                        <div className="flex flex-col md:flex-row items-center gap-5 md:gap-6 mb-6 text-center md:text-left">
+                            <div className="w-24 h-24 md:w-28 md:h-28 flex-shrink-0 rounded-full flex items-center justify-center shadow-2xl relative overflow-hidden"
                                  style={{
                                      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                                      boxShadow: '0 10px 40px rgba(102,126,234,0.5), inset 0 0 20px rgba(255,255,255,0.3)'
@@ -152,18 +201,18 @@ export default function Portfolio() {
                             </div>
 
                             <div>
-                                <h1 className="text-4xl md:text-6xl text-gray-700 font-bold mb-2" style={{
+                                <h1 className="text-3xl md:text-5xl text-gray-700 font-bold mb-2" style={{
                                     fontFamily: "Segoe UI",
                                 }}>
                                     Benjamin Nguyen
                                 </h1>
-                                <p className="text-xl md:text-2xl text-gray-700 font-semibold mb-4 px-1" style={{
+                                <p className="text-lg md:text-xl text-gray-700 font-semibold mb-3 px-1" style={{
                                     fontFamily: "Segoe UI",
                                 }}>
                                     Software Engineer | Systems Developer | Plant Enthusiast
                                     </p>
 
-                                <div className="flex flex-wrap justify-center md:justify-start gap-3 md:gap-4">
+                                <div className="flex flex-wrap justify-center md:justify-start gap-2 md:gap-3 text-sm">
                                     <a href="/resume.pdf" target="_blank" rel="noopener noreferrer"
                                        className="flex items-center gap-2 px-4 py-2 rounded-full transition-all hover:scale-105 text-white font-semibold"
                                        style={{
@@ -203,22 +252,22 @@ export default function Portfolio() {
                             </div>
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                             <VistaWindow title="Programming" icon={Code}>
-                                <div className="p-5 rounded-2xl shadow-lg border backdrop-blur-sm">
-                                    <p className="text-gray-700">Python, GoLang, Java, C, Bash, SQL, Assembly</p>
+                                <div className="p-3 rounded-2xl shadow-lg border backdrop-blur-sm">
+                                    <p className="text-gray-700 text-sm">Python, GoLang, Java, C, Bash, SQL, Assembly</p>
                                 </div>
                             </VistaWindow>
 
                             <VistaWindow title="Tools" icon={Settings}>
-                                <div className="p-5 rounded-2xl shadow-lg border backdrop-blur-sm">
-                                    <p className="text-gray-700">AWS, Git, Agile, Scrum, Jira</p>
+                                <div className="p-3 rounded-2xl shadow-lg border backdrop-blur-sm">
+                                    <p className="text-gray-700 text-sm">AWS, Git, Agile, Scrum, Jira</p>
                                 </div>
                             </VistaWindow>
 
                             <VistaWindow title="Education" icon={GraduationCap}>
-                                <div className="p-5 rounded-2xl shadow-lg border backdrop-blur-sm">
-                                    <p className="text-gray-700">Drexel University - Software Engineering BS</p>
+                                <div className="p-3 rounded-2xl shadow-lg border backdrop-blur-sm">
+                                    <p className="text-gray-700 text-sm">Drexel University - Software Engineering BS</p>
                                 </div>
                             </VistaWindow>
                         </div>
@@ -226,17 +275,17 @@ export default function Portfolio() {
                 </div>
 
                 {/* Experience Section */}
-                <div id="experience" className="mb-8 scroll-mt-6">
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+                <div id="experience" className="mb-6 scroll-mt-6">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-5">
                         <VistaWindow title="System Administrator - PJM Interconnection (via Yoh)" icon={Briefcase} className="lg:col-span-7">
                             <div className="space-y-3">
                                 <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 mb-4">
-                                    <h3 className="text-lg font-bold text-gray-800">PJM Interconnection</h3>
+                                    <h3 className="text-base font-bold text-gray-800">PJM Interconnection</h3>
                                     <span className="text-sm text-gray-600 px-3 py-1 bg-gray-100 rounded-full">
                     March 2026 - September 2026
                   </span>
                                 </div>
-                                <ul className="space-y-2 text-gray-700">
+                                <ul className="space-y-1.5 text-gray-700 text-sm">
                                     <li>• Automated repeatable infrastructure workflows across 30+ RHEL 8/9 hosts using Ansible Automation Platform</li>
                                     <li>• Integrated Cherwell ITSM and Halo APIs with AAP via Python for dynamic inventory updates</li>
                                     <li>• Developed YAML-based Ansible playbooks for configuration management, improving deployment efficiency by ~25%</li>
@@ -245,15 +294,15 @@ export default function Portfolio() {
                             </div>
                         </VistaWindow>
 
-                        <VistaWindow title="Information Technology Specialist - UPenn School of Nursing" icon={Briefcase} className="lg:col-span-5 lg:mt-10">
+                        <VistaWindow title="Information Technology Specialist - UPenn School of Nursing" icon={Briefcase} className="lg:col-span-5">
                             <div className="space-y-3">
                                 <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 mb-4">
-                                    <h3 className="text-lg font-bold text-gray-800">University of Pennsylvania School of Nursing</h3>
+                                    <h3 className="text-base font-bold text-gray-800">University of Pennsylvania School of Nursing</h3>
                                     <span className="text-sm text-gray-600 px-3 py-1 bg-gray-100 rounded-full">
                     March 2025 - September 2025
                   </span>
                                 </div>
-                                <ul className="space-y-2 text-gray-700">
+                                <ul className="space-y-1.5 text-gray-700 text-sm">
                                     <li>• Provided Tier 1 technical support for Windows 10 and macOS environments with remote troubleshooting</li>
                                     <li>• Maintained classroom AV systems including Crestron hardware and integrated peripherals</li>
                                     <li>• Configured enterprise software platforms including Microsoft 365, SharePoint Online, Canvas LMS</li>
@@ -262,15 +311,15 @@ export default function Portfolio() {
                             </div>
                         </VistaWindow>
 
-                        <VistaWindow title="IT/Tech Intern - Lavner Education" icon={Briefcase} className="lg:col-span-8 lg:col-start-3">
+                        <VistaWindow title="IT/Tech Intern - Lavner Education" icon={Briefcase} className="lg:col-span-12">
                             <div className="space-y-3">
                                 <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 mb-4">
-                                    <h3 className="text-lg font-bold text-gray-800">Lavner Education</h3>
+                                    <h3 className="text-base font-bold text-gray-800">Lavner Education</h3>
                                     <span className="text-sm text-gray-600 px-3 py-1 bg-gray-100 rounded-full">
                     June 2024 - August 2024
                   </span>
                                 </div>
-                                <ul className="space-y-2 text-gray-700">
+                                <ul className="space-y-1.5 text-gray-700 text-sm">
                                     <li>• Instructed students aged 6-12 in Python, LUA, and Scratch programming languages</li>
                                     <li>• Developed engaging curriculum that enhanced problem-solving skills and creativity</li>
                                     <li>• Provided technical support and troubleshooting for camp technology</li>
@@ -282,13 +331,13 @@ export default function Portfolio() {
                 </div>
 
                 {/* Projects Section */}
-                <div id="projects" className="mb-8 scroll-mt-6">
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+                <div id="projects" className="mb-6 scroll-mt-6">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-5">
                         {/* Hiking Gear Recommender */}
-                        <VistaWindow title="Hiking Gear Recommender" icon={Mountain} className="lg:col-span-5 lg:mt-6">
-                            <div className="text-center py-8 md:py-12">
-                                <Mountain className="w-16 h-16 mx-auto mb-4 text-gray-400" />
-                                <p className="text-gray-600 mb-6">
+                        <VistaWindow title="Hiking Gear Recommender" icon={Mountain} className="lg:col-span-5">
+                            <div className="text-center py-5 md:py-8">
+                                <Mountain className="w-12 h-12 mx-auto mb-3 text-gray-400" />
+                                <p className="text-gray-600 mb-4 text-sm">
                                     Full-stack gear recommendation app built with Flask, React, PostgreSQL, and the Claude API.
                                     <br />
                                     Enter trip parameters and get a ranked kit based on destination, duration, and live weather.
@@ -297,7 +346,7 @@ export default function Portfolio() {
                                     href="https://github.com/Bensoo00/HikingGearRecommendations"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-white transition-all hover:scale-105"
+                                    className="inline-flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-sm text-white transition-all hover:scale-105"
                                     style={{
                                         background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                                         boxShadow: '0 4px 15px rgba(102, 126, 234, 0.4)'
@@ -311,9 +360,9 @@ export default function Portfolio() {
 
                         {/* Trading Bot */}
                         <VistaWindow title="AI Trading Bot" icon={TrendingUp} className="lg:col-span-7">
-                            <div className="text-center py-8 md:py-12">
-                                <Activity className="w-16 h-16 mx-auto mb-4 text-gray-400" />
-                                <p className="text-gray-600 mb-6">
+                            <div className="text-center py-5 md:py-8">
+                                <Activity className="w-12 h-12 mx-auto mb-3 text-gray-400" />
+                                <p className="text-gray-600 mb-4 text-sm">
                                     Real-time AI trading bot using reinforcement learning.
                                     <br />
                                     Click below to manage the bot and view detailed analytics.
@@ -321,7 +370,7 @@ export default function Portfolio() {
                                 <div className="flex flex-wrap justify-center gap-3">
                                     <button
                                         onClick={() => setCurrentPage('bot-control')}
-                                        className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-white transition-all hover:scale-105"
+                                        className="inline-flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-sm text-white transition-all hover:scale-105"
                                         style={{
                                             background: 'linear-gradient(135deg, #11998e 0%, #38ef7d 100%)',
                                             boxShadow: '0 4px 15px rgba(17, 153, 142, 0.4)'
@@ -333,7 +382,7 @@ export default function Portfolio() {
                                         href="https://github.com/Bensoo00/Mock-Trading-API"
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-white transition-all hover:scale-105"
+                                        className="inline-flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-sm text-white transition-all hover:scale-105"
                                         style={{
                                             background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                                             boxShadow: '0 4px 15px rgba(102, 126, 234, 0.4)'
@@ -354,10 +403,10 @@ export default function Portfolio() {
                         {/* Vendor Buddy */}
                         <VistaWindow title="Vendor Buddy" icon={Store} className="lg:col-span-7">
                         <div className="space-y-3">
-                            <h3 className="text-lg font-bold text-gray-800 mb-3">
+                            <h3 className="text-base font-bold text-gray-800 mb-2">
                                 Full-stack inventory and pricing platform for trading card vendors — React, Flask, PostgreSQL, Stripe
                             </h3>
-                            <ul className="space-y-2 text-gray-700">
+                            <ul className="space-y-1.5 text-gray-700 text-sm">
                                 <li>• Built inventory management with live TCGPlayer market prices and eBay sold comps, cached for fast lookups</li>
                                 <li>• Designed a card show calendar tracking booth and travel costs with per-event profit and loss</li>
                                 <li>• Created quick sale and trade flows for selling at shows, with idempotent offline sync</li>
@@ -367,12 +416,12 @@ export default function Portfolio() {
                         </VistaWindow>
 
                         {/* Other Projects */}
-                        <VistaWindow title="Twitch Bot Detection System" icon={Terminal} className="lg:col-span-5 lg:mt-8">
+                        <VistaWindow title="Twitch Bot Detection System" icon={Terminal} className="lg:col-span-5">
                         <div className="space-y-3">
-                            <h3 className="text-lg font-bold text-gray-800 mb-3">
+                            <h3 className="text-base font-bold text-gray-800 mb-2">
                                 Real-time chat analysis system using Python, Pandas, and NLP
                             </h3>
-                            <ul className="space-y-2 text-gray-700">
+                            <ul className="space-y-1.5 text-gray-700 text-sm">
                                 <li>• Developed real-time Twitch chat logger connecting to multiple streams simultaneously</li>
                                 <li>• Preprocessed large volumes of chat data using NLP techniques including tokenization and sentiment analysis</li>
                                 <li>• Performed advanced feature extraction with TF-IDF vectors and lexical diversity metrics</li>

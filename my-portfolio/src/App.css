@@ -12,6 +12,48 @@
   animation: vistaFloat var(--float-dur, 8s) ease-in-out var(--float-delay, 0s) infinite;
 }
 
+/* Vista boot screen */
+.boot-orb {
+  animation: bootGlow 1.8s ease-in-out infinite;
+}
+
+@keyframes bootGlow {
+  0%, 100% { box-shadow: 0 0 20px rgba(122, 199, 227, 0.5), 0 0 40px rgba(122, 199, 227, 0.2); }
+  50% { box-shadow: 0 0 45px rgba(122, 199, 227, 0.9), 0 0 80px rgba(122, 199, 227, 0.4); }
+}
+
+.boot-track {
+  position: relative;
+  width: 220px;
+  height: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 4px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.boot-blocks {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  left: -60px;
+  width: 54px;
+  display: flex;
+  gap: 5px;
+  animation: bootSlide 1.5s linear infinite;
+}
+
+.boot-block {
+  flex: 1;
+  border-radius: 2px;
+  background: linear-gradient(180deg, #b7f397 0%, #56c22d 45%, #2f9e12 55%, #237c0d 100%);
+}
+
+@keyframes bootSlide {
+  from { left: -60px; }
+  to { left: 226px; }
+}
+
 /* Freeze the bob while the user is dragging so the window
    tracks the cursor exactly */
 .vista-dragging .vista-float {
@@ -40,6 +82,10 @@
   }
   .vista-window {
     transition: none !important;
+  }
+  .boot-orb,
+  .boot-blocks {
+    animation: none;
   }
 }
 

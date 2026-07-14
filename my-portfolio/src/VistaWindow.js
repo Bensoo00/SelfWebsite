@@ -95,9 +95,12 @@ export default function VistaWindow({
                 style={{
                     '--float-dur': float.current.dur,
                     '--float-delay': float.current.delay,
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
                     background: 'linear-gradient(180deg, rgba(255,255,255,0.35) 0%, rgba(190,225,245,0.22) 100%)',
                     borderRadius: '18px',
-                    padding: '6px',
+                    padding: '5px',
                     border: '1px solid rgba(255,255,255,0.55)',
                     boxShadow: dragging
                         ? '0 30px 70px rgba(20, 60, 100, 0.4), 0 0 0 1px rgba(255,255,255,0.3), inset 0 1px 0 rgba(255,255,255,0.6)'
@@ -112,6 +115,9 @@ export default function VistaWindow({
                         borderRadius: '13px',
                         overflow: 'hidden',
                         position: 'relative',
+                        flex: 1,
+                        display: 'flex',
+                        flexDirection: 'column',
                     }}
                 >
                     {/* Title Bar — the drag handle */}
@@ -134,7 +140,8 @@ export default function VistaWindow({
                             rgba(74, 149, 184, 0.5) 100%)`,
                             backdropFilter: "blur(12px)",
                             WebkitBackdropFilter: "blur(12px)",
-                            height: "32px",
+                            height: "28px",
+                            flexShrink: 0,
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "space-between",
@@ -264,8 +271,9 @@ export default function VistaWindow({
                             background: 'rgba(255, 255, 255, 0.94)',
                             border: '1px solid rgba(255,255,255,0.7)',
                             borderTop: 'none',
-                            minHeight: collapsed ? '0' : '120px',
-                            padding: collapsed ? '0 16px' : '16px',
+                            flex: collapsed ? 'none' : 1,
+                            minHeight: collapsed ? '0' : '60px',
+                            padding: collapsed ? '0 12px' : '12px',
                             maxHeight: collapsed ? '0' : 'none',
                             overflow: collapsed ? 'hidden' : 'visible',
                             position: 'relative',
