@@ -12,6 +12,52 @@
   animation: vistaFloat var(--float-dur, 8s) ease-in-out var(--float-delay, 0s) infinite;
 }
 
+/* Vista-style page open: brief zoom-fade when navigating between routes */
+.page-open {
+  animation: pageOpen 0.32s cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+
+@keyframes pageOpen {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Rising bubbles for the underwater Projects theme */
+.aero-bubble {
+  position: absolute;
+  bottom: -30px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.9), rgba(255,255,255,0.15) 60%, rgba(255,255,255,0.05));
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  animation: bubbleRise linear infinite;
+}
+
+@keyframes bubbleRise {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateY(-50vh) translateX(12px);
+  }
+  95% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(-105vh) translateX(-8px);
+    opacity: 0;
+  }
+}
+
 /* Vista boot screen */
 .boot-orb {
   animation: bootGlow 1.8s ease-in-out infinite;
@@ -84,7 +130,9 @@
     transition: none !important;
   }
   .boot-orb,
-  .boot-blocks {
+  .boot-blocks,
+  .page-open,
+  .aero-bubble {
     animation: none;
   }
 }
