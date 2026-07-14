@@ -98,7 +98,7 @@ export default function HomePage() {
                         <VistaWindow title="Education" icon={GraduationCap} className="md:col-span-2">
                             <div className="p-3 rounded-2xl shadow-lg border backdrop-blur-sm">
                                 <p className="text-gray-700 text-sm">
-                                    Drexel University — B.S. Computer Science (Sept 2022 – Sept 2026)
+                                    Drexel University — B.S. Software Engineering (Sept 2022 – Sept 2026)
                                     <br />
                                     Relevant coursework: Data Structures, Systems Programming, Databases, Artificial Intelligence
                                 </p>
@@ -117,7 +117,7 @@ export default function HomePage() {
                             automating RHEL infrastructure with Ansible and Python.
                         </p>
                         <p>
-                            Finishing my <span className="font-bold text-gray-800">B.S. in Computer Science at Drexel University</span> (September 2026).
+                            Finishing my <span className="font-bold text-gray-800">B.S. in Software Engineering at Drexel University</span> (September 2026).
                         </p>
                         <p className="text-gray-600">
                             Open to full-time software engineering and systems roles starting late 2026.
