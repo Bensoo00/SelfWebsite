@@ -138,7 +138,7 @@ export default function BotControlPage() {
               <div className="space-y-6">
                 {/* Status Cards */}
                 {botStatus && (
-                  <div className="grid grid-cols-4 gap-4 mb-6">
+                  <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
                     <div className="p-5 rounded-2xl border shadow-lg"
                       style={{
                         background: 'linear-gradient(135deg, rgba(135,206,250,0.25) 0%, rgba(173,216,230,0.15) 100%)',
@@ -191,7 +191,7 @@ export default function BotControlPage() {
                       <Settings className="w-6 h-6" />
                       Initialize Bot Configuration
                     </h3>
-                    <div className="grid grid-cols-2 gap-4 mb-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                       <input
                         type="text"
                         placeholder="Alpaca API Key"

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Terminal, Activity, Code, Briefcase, Mail, Linkedin, TrendingUp, Droplets, Sparkles, Sun, Cloud, Settings, User, GraduationCap, Mountain } from 'lucide-react';
+import { Terminal, Activity, Code, Briefcase, Mail, Linkedin, TrendingUp, Droplets, Sparkles, Sun, Cloud, Settings, User, GraduationCap, Mountain, FileText, Github, Store } from 'lucide-react';
 import IntegratedTradingBot from './IntegratedTradingBot';
 import BotControlPage from './BotControlPage';
 import VistaWindow from './VistaWindow';
@@ -64,34 +64,26 @@ export default function Portfolio() {
                      borderRadius: '7px 7px 6px 6px',
                      position: 'relative',
                  }}>
-                <div className="max-w-7xl mx-auto px-8 py-2">
-                    <div className="flex items-center justify-between">
+                <div className="max-w-7xl mx-auto px-4 md:px-8 py-2">
+                    <div className="flex items-center justify-between gap-3 flex-wrap">
                         <div className="flex items-center gap-3 cursor-pointer" onClick={() => setCurrentPage('home')}>
-                            <div className="w-16 h-16 rounded-full flex items-center justify-center shadow-2xl relative overflow-hidden"
-                                 style={{
-                                 }}>
-
-                                <img src="/vista.jpg" alt="Logo" className="w-25 h-25 relative z-10" style={{
+                            <div className="w-10 h-10 md:w-16 md:h-16 rounded-full flex items-center justify-center shadow-2xl relative overflow-hidden">
+                                <img src="/vista.jpg" alt="bennguyen.net logo" className="relative z-10" style={{
                                     height: '100%',
                                     width: '100%',
                                     position: 'absolute',
-
                                 }}/>
                                 <Code className="w-6 h-6 text-white" />
                             </div>
-                            <div className="text-gray-700 font-semibold hover:text-blue-500 transition-colors" style={{
-                                WebkitBackgroundClip: 'text',
+                            <div className="hidden sm:block text-gray-700 font-semibold hover:text-blue-500 transition-colors text-lg md:text-2xl" style={{
                                 fontFamily: "Segoe UI",
-                                fontSize: '1.4rem',
                             }}>
                                 bennguyen.net
                             </div>
                         </div>
 
-                        <div className="flex gap-8"style={{
-                            WebkitBackgroundClip: 'text',
+                        <div className="flex gap-4 md:gap-8 text-base md:text-xl" style={{
                             fontFamily: "Segoe UI",
-                            fontSize: '1.35rem',
                         }}>
                             <a href="#about" onClick={() => setCurrentPage('home')} className="text-gray-700 hover:text-blue-500 transition-colors font-semibold">About</a>
                             <a href="#experience" onClick={() => setCurrentPage('home')} className="text-gray-700 hover:text-blue-500 transition-colors font-semibold">Experience</a>
@@ -106,44 +98,60 @@ export default function Portfolio() {
 
             {/* Main Content */}
             {currentPage === 'bot-control' ? (
-                <div className="relative z-10 max-w-7xl mx-auto px-8 py-12">
+                <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 py-8 md:py-12">
                     <BotControlPage />
                 </div>
             ) : (
-            <div className="relative z-10 max-w-7xl mx-auto px-8 py-12">
+            <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 py-8 md:py-12">
 
                 {/* About Me Section */}
                 <div id="about" className="mb-8">
                     <VistaWindow title="About Me" icon={User}>
-                        <div className="flex items-center gap-8 mb-8">
-                            <div className="w-36 h-36 rounded-full flex items-center justify-center shadow-2xl relative overflow-hidden"
+                        <div className="flex flex-col md:flex-row items-center gap-6 md:gap-8 mb-8 text-center md:text-left">
+                            <div className="w-28 h-28 md:w-36 md:h-36 flex-shrink-0 rounded-full flex items-center justify-center shadow-2xl relative overflow-hidden"
                                  style={{
                                      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                                      boxShadow: '0 10px 40px rgba(102,126,234,0.5), inset 0 0 20px rgba(255,255,255,0.3)'
                                  }}>
-                                <img src="/bear.jpg" alt="Logo" className="w-20 h-20 relative z-10" style={{
+                                <img src="/bear.jpg" alt="Benjamin Nguyen" className="relative z-10" style={{
                                     height: '120%',
                                     width: '120%',
                                     position: 'absolute',
-
                                 }}/>
                                 <div className="absolute inset-0 opacity-30"></div>
                             </div>
 
                             <div>
-                                <h1 className="text-6xl text-gray-700 font-bold mb-2 " style={{
-                                    WebkitBackgroundClip: 'text',
+                                <h1 className="text-4xl md:text-6xl text-gray-700 font-bold mb-2" style={{
                                     fontFamily: "Segoe UI",
                                 }}>
                                     Benjamin Nguyen
                                 </h1>
-                                <p className="text-2xl text-gray-700 font-semibold mb-2 px-1" style={{
+                                <p className="text-xl md:text-2xl text-gray-700 font-semibold mb-4 px-1" style={{
                                     fontFamily: "Segoe UI",
                                 }}>
                                     Software Engineer | Systems Developer | Plant Enthusiast
                                     </p>
 
-                                <div className="flex gap-6">
+                                <div className="flex flex-wrap justify-center md:justify-start gap-3 md:gap-4">
+                                    <a href="/resume.pdf" target="_blank" rel="noopener noreferrer"
+                                       className="flex items-center gap-2 px-4 py-2 rounded-full transition-all hover:scale-105 text-white font-semibold"
+                                       style={{
+                                           background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                                           boxShadow: '0 4px 15px rgba(102,126,234,0.4)'
+                                       }}>
+                                        <FileText className="w-5 h-5" />
+                                        <span>Resume</span>
+                                    </a>
+                                    <a href="https://github.com/Bensoo00" target="_blank" rel="noopener noreferrer"
+                                       className="flex items-center gap-2 px-4 py-2 rounded-full transition-all hover:scale-105"
+                                       style={{
+                                           background: 'linear-gradient(135deg, rgba(102,126,234,0.2) 0%, rgba(118,75,162,0.2) 100%)',
+                                           color: '#667eea'
+                                       }}>
+                                        <Github className="w-5 h-5" />
+                                        <span className="font-semibold">GitHub</span>
+                                    </a>
                                     <a href="mailto:bennnguyen22@gmail.com" className="flex items-center gap-2 px-4 py-2 rounded-full transition-all hover:scale-105"
                                        style={{
                                            background: 'linear-gradient(135deg, rgba(102,126,234,0.2) 0%, rgba(118,75,162,0.2) 100%)',
@@ -165,24 +173,21 @@ export default function Portfolio() {
                             </div>
                         </div>
 
-                        <div className="grid grid-cols-3 gap-6">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                             <VistaWindow title="Programming" icon={Code}>
                                 <div className="p-5 rounded-2xl shadow-lg border backdrop-blur-sm">
-                                    <h3 className="font-bold text-gray-800 mb-2 text-lg">Programming</h3>
                                     <p className="text-gray-700">Python, GoLang, Java, C, Bash, SQL, Assembly</p>
                                 </div>
                             </VistaWindow>
 
                             <VistaWindow title="Tools" icon={Settings}>
                                 <div className="p-5 rounded-2xl shadow-lg border backdrop-blur-sm">
-                                    <h3 className="font-bold text-gray-800 mb-2 text-lg">Tools</h3>
                                     <p className="text-gray-700">AWS, Git, Agile, Scrum, Jira</p>
                                 </div>
                             </VistaWindow>
 
                             <VistaWindow title="Education" icon={GraduationCap}>
                                 <div className="p-5 rounded-2xl shadow-lg border backdrop-blur-sm">
-                                    <h3 className="font-bold text-gray-800 mb-2 text-lg">Education</h3>
                                     <p className="text-gray-700">Drexel University - Software Engineering BS</p>
                                 </div>
                             </VistaWindow>
@@ -195,7 +200,7 @@ export default function Portfolio() {
                     <div className="space-y-6">
                         <VistaWindow title="System Administrator - PJM Interconnection (via Yoh)" icon={Briefcase}>
                             <div className="space-y-3">
-                                <div className="flex justify-between items-center mb-4">
+                                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 mb-4">
                                     <h3 className="text-lg font-bold text-gray-800">PJM Interconnection</h3>
                                     <span className="text-sm text-gray-600 px-3 py-1 bg-gray-100 rounded-full">
                     March 2026 - September 2026
@@ -212,7 +217,7 @@ export default function Portfolio() {
 
                         <VistaWindow title="Information Technology Specialist - UPenn School of Nursing" icon={Briefcase}>
                             <div className="space-y-3">
-                                <div className="flex justify-between items-center mb-4">
+                                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 mb-4">
                                     <h3 className="text-lg font-bold text-gray-800">University of Pennsylvania School of Nursing</h3>
                                     <span className="text-sm text-gray-600 px-3 py-1 bg-gray-100 rounded-full">
                     March 2025 - September 2025
@@ -229,7 +234,7 @@ export default function Portfolio() {
 
                         <VistaWindow title="IT/Tech Intern - Lavner Education" icon={Briefcase}>
                             <div className="space-y-3">
-                                <div className="flex justify-between items-center mb-4">
+                                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 mb-4">
                                     <h3 className="text-lg font-bold text-gray-800">Lavner Education</h3>
                                     <span className="text-sm text-gray-600 px-3 py-1 bg-gray-100 rounded-full">
                     June 2024 - August 2024
@@ -248,48 +253,66 @@ export default function Portfolio() {
 
                 {/* Projects Section */}
                 <div id="projects" className="mb-8">
-                    <div className="grid grid-cols-2 gap-8 mb-8">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
                         {/* Hiking Gear Recommender */}
                         <VistaWindow title="Hiking Gear Recommender" icon={Mountain}>
-                            <div className="text-center py-12">
+                            <div className="text-center py-8 md:py-12">
                                 <Mountain className="w-16 h-16 mx-auto mb-4 text-gray-400" />
                                 <p className="text-gray-600 mb-6">
                                     Full-stack gear recommendation app built with Flask, React, PostgreSQL, and the Claude API.
                                     <br />
                                     Enter trip parameters and get a ranked kit based on destination, duration, and live weather.
                                 </p>
-                                <button
-                                    disabled
-                                    className="px-6 py-3 rounded-xl font-bold text-white cursor-not-allowed opacity-70"
+                                <a
+                                    href="https://github.com/Bensoo00/HikingGearRecommendations"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-white transition-all hover:scale-105"
                                     style={{
                                         background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                                         boxShadow: '0 4px 15px rgba(102, 126, 234, 0.4)'
                                     }}
                                 >
-                                    Live Demo Coming Soon
-                                </button>
+                                    <Github className="w-5 h-5" />
+                                    View Code
+                                </a>
                             </div>
                         </VistaWindow>
 
                         {/* Trading Bot */}
                         <VistaWindow title="AI Trading Bot" icon={TrendingUp}>
-                            <div className="text-center py-12">
+                            <div className="text-center py-8 md:py-12">
                                 <Activity className="w-16 h-16 mx-auto mb-4 text-gray-400" />
                                 <p className="text-gray-600 mb-6">
                                     Real-time AI trading bot using reinforcement learning.
                                     <br />
                                     Click below to manage the bot and view detailed analytics.
                                 </p>
-                                <button
-                                    onClick={() => setCurrentPage('bot-control')}
-                                    className="px-6 py-3 rounded-xl font-bold text-white transition-all hover:scale-105"
-                                    style={{
-                                        background: 'linear-gradient(135deg, #11998e 0%, #38ef7d 100%)',
-                                        boxShadow: '0 4px 15px rgba(17, 153, 142, 0.4)'
-                                    }}
-                                >
-                                    Open Control Panel
-                                </button>
+                                <div className="flex flex-wrap justify-center gap-3">
+                                    <button
+                                        onClick={() => setCurrentPage('bot-control')}
+                                        className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-white transition-all hover:scale-105"
+                                        style={{
+                                            background: 'linear-gradient(135deg, #11998e 0%, #38ef7d 100%)',
+                                            boxShadow: '0 4px 15px rgba(17, 153, 142, 0.4)'
+                                        }}
+                                    >
+                                        Open Control Panel
+                                    </button>
+                                    <a
+                                        href="https://github.com/Bensoo00/Mock-Trading-API"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-white transition-all hover:scale-105"
+                                        style={{
+                                            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                                            boxShadow: '0 4px 15px rgba(102, 126, 234, 0.4)'
+                                        }}
+                                    >
+                                        <Github className="w-5 h-5" />
+                                        View Code
+                                    </a>
+                                </div>
                             </div>
                         </VistaWindow>
                     </div>
@@ -299,8 +322,23 @@ export default function Portfolio() {
                         <IntegratedTradingBot />
                     </VistaWindow>
 
+                    {/* Vendor Buddy */}
+                    <VistaWindow title="Vendor Buddy" icon={Store} className="mt-8">
+                        <div className="space-y-3">
+                            <h3 className="text-lg font-bold text-gray-800 mb-3">
+                                Full-stack inventory and pricing platform for trading card vendors — React, Flask, PostgreSQL, Stripe
+                            </h3>
+                            <ul className="space-y-2 text-gray-700">
+                                <li>• Built inventory management with live TCGPlayer market prices and eBay sold comps, cached for fast lookups</li>
+                                <li>• Designed a card show calendar tracking booth and travel costs with per-event profit and loss</li>
+                                <li>• Created quick sale and trade flows for selling at shows, with idempotent offline sync</li>
+                                <li>• Added camera-based OCR card scanning (Tesseract.js) to add inventory in seconds</li>
+                            </ul>
+                        </div>
+                    </VistaWindow>
+
                     {/* Other Projects */}
-                    <VistaWindow title="Twitch Bot Detection System" icon={Terminal}>
+                    <VistaWindow title="Twitch Bot Detection System" icon={Terminal} className="mt-8">
                         <div className="space-y-3">
                             <h3 className="text-lg font-bold text-gray-800 mb-3">
                                 Real-time chat analysis system using Python, Pandas, and NLP
@@ -324,10 +362,10 @@ export default function Portfolio() {
                         borderTop: '1px solid rgba(255,255,255,0.8)',
                         boxShadow: '0 -4px 30px rgba(0,0,0,0.05)'
                     }}>
-                <div className="max-w-7xl mx-auto px-8 py-8 text-center text-gray-700">
-                    <p className="font-semibold text-lg">© 2025 Benjamin Nguyen</p>
+                <div className="max-w-7xl mx-auto px-4 md:px-8 py-8 text-center text-gray-700">
+                    <p className="font-semibold text-lg">© 2026 Benjamin Nguyen</p>
                     <p className="text-sm mt-2">Built with React and Windows Vista aesthetics</p>
-                    <p className="text-sm mt-1">267-836-3615 | bennnguyen22@gmail.com</p>
+                    <p className="text-sm mt-1">bennnguyen22@gmail.com</p>
                 </div>
             </footer>
             <SpeedInsights />

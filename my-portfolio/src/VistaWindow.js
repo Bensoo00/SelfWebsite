@@ -1,7 +1,8 @@
 // VistaWindow.js
 // Draggable, free-floating Frutiger Aero window.
-// - Drag by the title bar (mouse or touch)
+// - Drag by the title bar (mouse only; touch devices scroll normally)
 // - Double-click the title bar to snap the window back home
+// - Minimize/close collapse the window content, maximize restores it
 // - Idle "bobbing on water" float, randomized per window so they drift out of sync
 // - Windows keep their slot in the page layout, so structure is preserved
 import React, { useState, useRef } from 'react';
@@ -9,6 +10,12 @@ import { X, Minimize, Maximize2 } from 'lucide-react';
 
 // Shared counter so the most recently touched window floats above the others
 let topZ = 10;
+
+// On touch-first devices dragging would hijack page scrolling, so keep it mouse-only
+const isCoarsePointer = () =>
+    typeof window !== 'undefined' &&
+    window.matchMedia &&
+    window.matchMedia('(pointer: coarse)').matches;
 
 export default function VistaWindow({
                                         title = "Window",
@@ -20,7 +27,9 @@ export default function VistaWindow({
     const [offset, setOffset] = useState({ x: 0, y: 0 });
     const [dragging, setDragging] = useState(false);
     const [zIndex, setZIndex] = useState(1);
+    const [collapsed, setCollapsed] = useState(false);
     const dragStart = useRef({ px: 0, py: 0, ox: 0, oy: 0 });
+    const touchDevice = useRef(isCoarsePointer());
 
     // Randomize the idle float per window instance so the page feels alive,
     // not like everything is bolted to one metronome.
@@ -37,6 +46,7 @@ export default function VistaWindow({
     const handlePointerDown = (e) => {
         // Only left click / primary touch, and don't steal drags from nested windows
         if (e.button !== undefined && e.button !== 0) return;
+        if (touchDevice.current || e.pointerType === 'touch') return;
         e.stopPropagation();
         bringToFront();
         setDragging(true);
@@ -132,7 +142,7 @@ export default function VistaWindow({
                             position: "relative",
                             cursor: dragging ? "grabbing" : "grab",
                             userSelect: "none",
-                            touchAction: "none",
+                            touchAction: touchDevice.current ? "auto" : "none",
                         }}
                     >
                         {/* Left side - Icon and Title */}
@@ -151,11 +161,13 @@ export default function VistaWindow({
               </span>
                         </div>
 
-                        {/* Right side - Window Controls (decorative, but they shouldn't start a drag) */}
+                        {/* Right side - Window Controls (they shouldn't start a drag) */}
                         <div style={{ display: 'flex', gap: '2px' }} onPointerDown={stopDrag}>
                             {/* Minimize Button */}
                             <button
                                 className="vista-control-btn"
+                                aria-label={`Minimize ${title}`}
+                                onClick={() => setCollapsed(true)}
                                 style={{
                                     width: '24px',
                                     height: '18px',
@@ -184,6 +196,8 @@ export default function VistaWindow({
                             {/* Maximize Button */}
                             <button
                                 className="vista-control-btn"
+                                aria-label={`Restore ${title}`}
+                                onClick={() => setCollapsed(false)}
                                 style={{
                                     width: '24px',
                                     height: '18px',
@@ -209,9 +223,11 @@ export default function VistaWindow({
                                 <Maximize2 style={{ width: '12px', height: '12px' }} />
                             </button>
 
-                            {/* Close Button */}
+                            {/* Close Button (collapses too — nothing on a portfolio should truly vanish) */}
                             <button
                                 className="vista-control-btn"
+                                aria-label={`Collapse ${title}`}
+                                onClick={() => setCollapsed(prev => !prev)}
                                 style={{
                                     width: '45px',
                                     height: '18px',
@@ -248,8 +264,10 @@ export default function VistaWindow({
                             background: 'rgba(255, 255, 255, 0.94)',
                             border: '1px solid rgba(255,255,255,0.7)',
                             borderTop: 'none',
-                            minHeight: '120px',
-                            padding: '16px',
+                            minHeight: collapsed ? '0' : '120px',
+                            padding: collapsed ? '0 16px' : '16px',
+                            maxHeight: collapsed ? '0' : 'none',
+                            overflow: collapsed ? 'hidden' : 'visible',
                             position: 'relative',
                         }}
                     >

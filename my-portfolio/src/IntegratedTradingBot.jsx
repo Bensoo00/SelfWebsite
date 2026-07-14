@@ -1,18 +1,25 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from 'recharts';
-import { Activity, TrendingUp, DollarSign } from 'lucide-react';
+import { Activity, TrendingUp, DollarSign, Loader2, WifiOff } from 'lucide-react';
 
 const API_BASE_URL = 'https://mock-trading-api.onrender.com/api';
+
+// The demo API sleeps on Render's free tier, so give it time to cold-start
+// before declaring it unreachable.
+const UNREACHABLE_AFTER_MS = 90000;
 
 export default function IntegratedTradingBot() {
   const [botStatus, setBotStatus] = useState(null);
   const [trades, setTrades] = useState([]);
   const [performance, setPerformance] = useState([]);
+  // 'connecting' -> 'connected' | 'unreachable'
+  const [connection, setConnection] = useState('connecting');
   const [liveMessages, setLiveMessages] = useState([
     { time: '09:30:15', message: '🤖 Trading Bot Initializing...', type: 'system' }
   ]);
   
   const tradingChatRef = useRef(null);
+  const firstAttemptAt = useRef(Date.now());
 
   // Fetch bot data every 5 seconds
   useEffect(() => {
@@ -23,6 +30,7 @@ export default function IntegratedTradingBot() {
         if (statusRes.ok) {
           const statusData = await statusRes.json();
           setBotStatus(statusData);
+          setConnection('connected');
           
           // Add status message to live feed
           if (statusData.last_action && statusData.last_action !== 'HOLD') {
@@ -50,7 +58,10 @@ export default function IntegratedTradingBot() {
           setPerformance(perfData.performance || []);
         }
       } catch (error) {
-        console.error('Error fetching bot data:', error);
+        setConnection(prev => {
+          if (prev === 'connected') return prev;
+          return Date.now() - firstAttemptAt.current > UNREACHABLE_AFTER_MS ? 'unreachable' : prev;
+        });
       }
     };
 
@@ -86,7 +97,7 @@ export default function IntegratedTradingBot() {
   };
 
   return (
-    <div className="grid grid-cols-2 gap-8">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
       {/* LEFT COLUMN: Live Feed + Mini Stats */}
       <div className="space-y-6">
         {/* Live Trading Feed */}
@@ -119,7 +130,21 @@ export default function IntegratedTradingBot() {
             ref={tradingChatRef}
             className="p-6 h-80 overflow-y-auto space-y-3"
           >
-            {liveMessages.map((entry, i) => (
+            {connection === 'connecting' && (
+              <div className="h-full flex flex-col items-center justify-center text-gray-500 text-center px-4">
+                <Loader2 className="w-10 h-10 mb-3 animate-spin text-blue-400" />
+                <p className="font-semibold">Waking up the live demo server...</p>
+                <p className="text-sm mt-1">The bot runs on a free-tier server that naps when idle. This usually takes about 30 seconds.</p>
+              </div>
+            )}
+            {connection === 'unreachable' && (
+              <div className="h-full flex flex-col items-center justify-center text-gray-500 text-center px-4">
+                <WifiOff className="w-10 h-10 mb-3 text-gray-400" />
+                <p className="font-semibold">The live demo server is taking a break</p>
+                <p className="text-sm mt-1">Check out the source code on GitHub, or try again in a few minutes.</p>
+              </div>
+            )}
+            {connection === 'connected' && liveMessages.map((entry, i) => (
               <div key={i} className="flex gap-3">
                 <span className="text-xs text-gray-500 font-mono flex-shrink-0">{entry.time}</span>
                 <div className={`flex-1 px-4 py-2 rounded-2xl text-sm shadow-md border ${
@@ -140,9 +165,11 @@ export default function IntegratedTradingBot() {
               borderTop: '1px solid rgba(0,0,0,0.08)'
             }}>
             <p className="flex items-center gap-2">
-              <Activity className="w-4 h-4 text-green-500 animate-pulse" />
-              {botStatus && botStatus.market_open 
-                ? 'Market Open | Trading Active' 
+              <Activity className={`w-4 h-4 animate-pulse ${connection === 'connected' ? 'text-green-500' : 'text-gray-400'}`} />
+              {connection !== 'connected'
+                ? 'Connecting to demo server...'
+                : botStatus && botStatus.market_open
+                ? 'Market Open | Trading Active'
                 : 'Market Closed | Monitoring Only'}
             </p>
           </div>
@@ -150,7 +177,7 @@ export default function IntegratedTradingBot() {
 
         {/* Stats Grid */}
         {botStatus && (
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="backdrop-blur-xl rounded-2xl p-5 border shadow-lg"
               style={{
                 background: 'linear-gradient(135deg, rgba(135,206,250,0.3) 0%, rgba(173,216,230,0.2) 100%)',
@@ -249,11 +276,17 @@ export default function IntegratedTradingBot() {
                 />
               </AreaChart>
             </ResponsiveContainer>
+          ) : connection === 'unreachable' ? (
+            <div className="h-96 flex flex-col items-center justify-center text-gray-400 text-center px-4">
+              <WifiOff className="w-16 h-16 mb-4 opacity-30" />
+              <p className="text-lg font-semibold">Live data unavailable right now</p>
+              <p className="text-sm mt-2">The free-tier demo server is offline. Try again in a few minutes.</p>
+            </div>
           ) : (
-            <div className="h-96 flex flex-col items-center justify-center text-gray-400">
-              <Activity className="w-16 h-16 mb-4 opacity-30" />
-              <p className="text-lg font-semibold">No performance data yet</p>
-              <p className="text-sm mt-2">Start the bot to see real-time charts</p>
+            <div className="h-96 flex flex-col items-center justify-center text-gray-400 text-center px-4">
+              <Loader2 className="w-16 h-16 mb-4 opacity-40 animate-spin" />
+              <p className="text-lg font-semibold">Loading live performance data...</p>
+              <p className="text-sm mt-2">Waking up the demo server — usually about 30 seconds</p>
             </div>
           )}
 

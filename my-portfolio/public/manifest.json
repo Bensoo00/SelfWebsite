@@ -1,6 +1,7 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "bennguyen.net",
+  "name": "Benjamin Nguyen | Software Engineer",
+  "description": "Portfolio of Benjamin Nguyen, Software Engineer and Systems Developer.",
   "icons": [
     {
       "src": "favicon.ico",
@@ -20,6 +21,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
+  "theme_color": "#4a95b8",
   "background_color": "#ffffff"
 }
