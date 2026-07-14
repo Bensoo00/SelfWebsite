@@ -8,6 +8,7 @@ import ProjectsPage from './pages/ProjectsPage';
 import BotControlPage from './BotControlPage';
 import DesktopIcons from './DesktopIcons';
 import SidebarGadgets from './SidebarGadgets';
+import AnimatedBackdrop from './AnimatedBackdrop';
 import { themeForPath } from './themes';
 import { SpeedInsights } from "@vercel/speed-insights/react"
 import './App.css';
@@ -160,17 +161,18 @@ export default function Portfolio() {
 
     return (
         <div
-            className="relative overflow-hidden bg-cover bg-center"
-            style={{
-                backgroundImage: theme.background,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                backgroundRepeat: "no-repeat",
-                minHeight: "100vh",
-                transition: 'background-image 0.4s ease',
-                ...theme.vars,
-            }}
+            className="relative overflow-hidden min-h-screen"
+            style={theme.vars}
         >
+            {/* Living wallpaper stack — static JPG + CSS motion overlays */}
+            <div className="wallpaper-stack" aria-hidden="true">
+                <div
+                    className="wallpaper-base"
+                    style={{ backgroundImage: theme.background }}
+                />
+                <AnimatedBackdrop ambient={theme.ambient} />
+            </div>
+
             {/* Vista Boot Screen */}
             {bootStage !== 'done' && (
                 <div
@@ -200,7 +202,9 @@ export default function Portfolio() {
             )}
 
             {/* Frutiger Aero Background Effects */}
-            <AmbientEffects ambient={theme.ambient} />
+            <div className="fixed inset-0 z-[1] overflow-hidden pointer-events-none">
+                <AmbientEffects ambient={theme.ambient} />
+            </div>
 
             {/* Wide-screen side decorations */}
             <DesktopIcons />
