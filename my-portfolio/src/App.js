@@ -62,8 +62,12 @@ export default function Portfolio() {
                 <Cloud className="absolute bottom-1/2 right-1/3 w-12 h-12 text-white/40 animate-pulse" style={{ animationDelay: '2.5s' }} />
             </div>
 
-            {/* Floating Dock Navigation — fixed top-center, follows scroll */}
-            <nav className="fixed top-3 md:top-4 left-1/2 -translate-x-1/2 z-50" style={{ fontFamily: 'Segoe UI, Tahoma, sans-serif' }}>
+            {/* Floating Dock Navigation — fixed bottom-center, follows scroll */}
+            <nav className="fixed left-1/2 -translate-x-1/2 z-50"
+                 style={{
+                     fontFamily: 'Segoe UI, Tahoma, sans-serif',
+                     bottom: 'calc(0.75rem + env(safe-area-inset-bottom, 0px))',
+                 }}>
                 <div className="relative flex items-center gap-1 sm:gap-2 px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-3xl"
                      style={{
                          background: 'linear-gradient(180deg, rgba(255,255,255,0.65) 0%, rgba(190,225,245,0.4) 55%, rgba(122,199,227,0.4) 100%)',
@@ -124,14 +128,14 @@ export default function Portfolio() {
 
             {/* Main Content */}
             {currentPage === 'bot-control' ? (
-                <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 pt-28 md:pt-32 pb-8 md:pb-12">
+                <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 pt-6 md:pt-10 pb-8 md:pb-12">
                     <BotControlPage />
                 </div>
             ) : (
-            <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 pt-28 md:pt-32 pb-8 md:pb-12">
+            <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 pt-6 md:pt-10 pb-8 md:pb-12">
 
                 {/* About Me Section */}
-                <div id="about" className="mb-8 scroll-mt-28 md:scroll-mt-32">
+                <div id="about" className="mb-8 scroll-mt-6">
                     <VistaWindow title="About Me" icon={User}>
                         <div className="flex flex-col md:flex-row items-center gap-6 md:gap-8 mb-8 text-center md:text-left">
                             <div className="w-28 h-28 md:w-36 md:h-36 flex-shrink-0 rounded-full flex items-center justify-center shadow-2xl relative overflow-hidden"
@@ -222,9 +226,9 @@ export default function Portfolio() {
                 </div>
 
                 {/* Experience Section */}
-                <div id="experience" className="mb-8 scroll-mt-28 md:scroll-mt-32">
-                    <div className="space-y-6">
-                        <VistaWindow title="System Administrator - PJM Interconnection (via Yoh)" icon={Briefcase}>
+                <div id="experience" className="mb-8 scroll-mt-6">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+                        <VistaWindow title="System Administrator - PJM Interconnection (via Yoh)" icon={Briefcase} className="lg:col-span-7">
                             <div className="space-y-3">
                                 <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 mb-4">
                                     <h3 className="text-lg font-bold text-gray-800">PJM Interconnection</h3>
@@ -241,7 +245,7 @@ export default function Portfolio() {
                             </div>
                         </VistaWindow>
 
-                        <VistaWindow title="Information Technology Specialist - UPenn School of Nursing" icon={Briefcase}>
+                        <VistaWindow title="Information Technology Specialist - UPenn School of Nursing" icon={Briefcase} className="lg:col-span-5 lg:mt-10">
                             <div className="space-y-3">
                                 <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 mb-4">
                                     <h3 className="text-lg font-bold text-gray-800">University of Pennsylvania School of Nursing</h3>
@@ -258,7 +262,7 @@ export default function Portfolio() {
                             </div>
                         </VistaWindow>
 
-                        <VistaWindow title="IT/Tech Intern - Lavner Education" icon={Briefcase}>
+                        <VistaWindow title="IT/Tech Intern - Lavner Education" icon={Briefcase} className="lg:col-span-8 lg:col-start-3">
                             <div className="space-y-3">
                                 <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 mb-4">
                                     <h3 className="text-lg font-bold text-gray-800">Lavner Education</h3>
@@ -278,10 +282,10 @@ export default function Portfolio() {
                 </div>
 
                 {/* Projects Section */}
-                <div id="projects" className="mb-8 scroll-mt-28 md:scroll-mt-32">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                <div id="projects" className="mb-8 scroll-mt-6">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
                         {/* Hiking Gear Recommender */}
-                        <VistaWindow title="Hiking Gear Recommender" icon={Mountain}>
+                        <VistaWindow title="Hiking Gear Recommender" icon={Mountain} className="lg:col-span-5 lg:mt-6">
                             <div className="text-center py-8 md:py-12">
                                 <Mountain className="w-16 h-16 mx-auto mb-4 text-gray-400" />
                                 <p className="text-gray-600 mb-6">
@@ -306,7 +310,7 @@ export default function Portfolio() {
                         </VistaWindow>
 
                         {/* Trading Bot */}
-                        <VistaWindow title="AI Trading Bot" icon={TrendingUp}>
+                        <VistaWindow title="AI Trading Bot" icon={TrendingUp} className="lg:col-span-7">
                             <div className="text-center py-8 md:py-12">
                                 <Activity className="w-16 h-16 mx-auto mb-4 text-gray-400" />
                                 <p className="text-gray-600 mb-6">
@@ -341,15 +345,14 @@ export default function Portfolio() {
                                 </div>
                             </div>
                         </VistaWindow>
-                    </div>
 
-                    {/* Trading Bot Integration */}
-                    <VistaWindow title="Trading Bot Analytics" icon={Activity}>
-                        <IntegratedTradingBot />
-                    </VistaWindow>
+                        {/* Trading Bot Integration */}
+                        <VistaWindow title="Trading Bot Analytics" icon={Activity} className="lg:col-span-12">
+                            <IntegratedTradingBot />
+                        </VistaWindow>
 
-                    {/* Vendor Buddy */}
-                    <VistaWindow title="Vendor Buddy" icon={Store} className="mt-8">
+                        {/* Vendor Buddy */}
+                        <VistaWindow title="Vendor Buddy" icon={Store} className="lg:col-span-7">
                         <div className="space-y-3">
                             <h3 className="text-lg font-bold text-gray-800 mb-3">
                                 Full-stack inventory and pricing platform for trading card vendors — React, Flask, PostgreSQL, Stripe
@@ -361,10 +364,10 @@ export default function Portfolio() {
                                 <li>• Added camera-based OCR card scanning (Tesseract.js) to add inventory in seconds</li>
                             </ul>
                         </div>
-                    </VistaWindow>
+                        </VistaWindow>
 
-                    {/* Other Projects */}
-                    <VistaWindow title="Twitch Bot Detection System" icon={Terminal} className="mt-8">
+                        {/* Other Projects */}
+                        <VistaWindow title="Twitch Bot Detection System" icon={Terminal} className="lg:col-span-5 lg:mt-8">
                         <div className="space-y-3">
                             <h3 className="text-lg font-bold text-gray-800 mb-3">
                                 Real-time chat analysis system using Python, Pandas, and NLP
@@ -376,7 +379,8 @@ export default function Portfolio() {
                                 <li>• Implemented sentiment analysis using NLTK Sentiment Intensity Analyzer</li>
                             </ul>
                         </div>
-                    </VistaWindow>
+                        </VistaWindow>
+                    </div>
                 </div>
             </div>
             )}
@@ -388,7 +392,7 @@ export default function Portfolio() {
                         borderTop: '1px solid rgba(255,255,255,0.8)',
                         boxShadow: '0 -4px 30px rgba(0,0,0,0.05)'
                     }}>
-                <div className="max-w-7xl mx-auto px-4 md:px-8 py-8 text-center text-gray-700">
+                <div className="max-w-7xl mx-auto px-4 md:px-8 pt-8 pb-28 md:pb-32 text-center text-gray-700">
                     <p className="font-semibold text-lg">© 2026 Benjamin Nguyen</p>
                     <p className="text-sm mt-2">Built with React and Windows Vista aesthetics</p>
                     <p className="text-sm mt-1">bennnguyen22@gmail.com</p>
