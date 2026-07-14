@@ -33,40 +33,11 @@ export default function HomePage() {
                             }}>
                                 Benjamin Nguyen
                             </h1>
-                            <p className="text-lg md:text-xl text-gray-700 font-semibold mb-3 px-1" style={{
+                            <p className="text-lg md:text-xl text-gray-700 font-semibold px-1" style={{
                                 fontFamily: "Segoe UI",
                             }}>
                                 Software Engineer | Systems Developer | Plant Enthusiast
                             </p>
-
-                            <div className="flex flex-wrap justify-center md:justify-start gap-2 md:gap-3 text-sm">
-                                <a href="/resume.pdf" target="_blank" rel="noopener noreferrer"
-                                   className="flex items-center gap-2 px-4 py-2 rounded-full transition-all hover:scale-105 text-white font-semibold"
-                                   style={{
-                                       background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                                       boxShadow: '0 4px 15px rgba(102,126,234,0.4)'
-                                   }}>
-                                    <FileText className="w-5 h-5" />
-                                    <span>Resume</span>
-                                </a>
-                                <a href="https://github.com/Bensoo00" target="_blank" rel="noopener noreferrer"
-                                   className="flex items-center gap-2 px-4 py-2 rounded-full transition-all hover:scale-105"
-                                   style={linkStyle}>
-                                    <Github className="w-5 h-5" />
-                                    <span className="font-semibold">GitHub</span>
-                                </a>
-                                <a href="mailto:bennnguyen22@gmail.com" className="flex items-center gap-2 px-4 py-2 rounded-full transition-all hover:scale-105"
-                                   style={linkStyle}>
-                                    <Mail className="w-5 h-5" />
-                                    <span className="font-semibold">Email</span>
-                                </a>
-                                <a href="https://www.linkedin.com/in/bennguyen04/" target="_blank" rel="noopener noreferrer"
-                                   className="flex items-center gap-2 px-4 py-2 rounded-full transition-all hover:scale-105"
-                                   style={linkStyle}>
-                                    <Linkedin className="w-5 h-5" />
-                                    <span className="font-semibold">LinkedIn</span>
-                                </a>
-                            </div>
                         </div>
                     </div>
 

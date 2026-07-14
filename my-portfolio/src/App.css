@@ -58,6 +58,41 @@
   }
 }
 
+/* Experience page — vertical career timeline */
+.experience-timeline-line {
+  position: absolute;
+  left: 11px;
+  top: 2rem;
+  bottom: 2rem;
+  width: 3px;
+  border-radius: 2px;
+  background: linear-gradient(
+    180deg,
+    rgba(144, 238, 144, 0.2) 0%,
+    rgba(85, 168, 74, 0.75) 15%,
+    rgba(85, 168, 74, 0.75) 85%,
+    rgba(144, 238, 144, 0.2) 100%
+  );
+  box-shadow: 0 0 12px rgba(100, 180, 90, 0.35);
+}
+
+.experience-timeline-node {
+  width: 24px;
+  height: 100%;
+  align-items: center;
+  flex-direction: column;
+}
+
+.experience-timeline-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: var(--vista-btn, linear-gradient(180deg, #8ed684 0%, #33702c 100%));
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 10px rgba(100, 180, 90, 0.5), 0 2px 6px rgba(20, 60, 40, 0.25);
+}
+
 /* Vista boot screen */
 .boot-orb {
   animation: bootGlow 1.8s ease-in-out infinite;

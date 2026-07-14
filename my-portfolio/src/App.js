@@ -290,7 +290,6 @@ export default function Portfolio() {
                 <div className="max-w-7xl mx-auto px-4 md:px-8 pt-8 pb-28 md:pb-32 text-center text-gray-700">
                     <p className="font-semibold text-lg">© 2026 Benjamin Nguyen</p>
                     <p className="text-sm mt-2">Built with React and Windows Vista aesthetics</p>
-                    <p className="text-sm mt-1">bennnguyen22@gmail.com</p>
                 </div>
             </footer>
             <SpeedInsights />
