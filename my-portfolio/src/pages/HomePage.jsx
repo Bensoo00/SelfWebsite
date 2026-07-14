@@ -127,9 +127,9 @@ export default function HomePage() {
 
                 <VistaWindow title="Beyond the Code" icon={Flower2} className="lg:col-span-5">
                     <div className="p-1 space-y-2 text-sm text-gray-700">
-                        <p>Houseplant collector with a growing jungle of them.</p>
-                        <p>Hiker — the reason the gear recommendation app exists.</p>
-                        <p>Trading card vendor on weekends, which inspired Vendor Buddy.</p>
+                        <p>I like to build terrariums and aquariums.</p>
+                        <p>I am an avid backpacker, just recently section-hiked the JMT.</p>
+                        <p>I enjoy bouldering, working on V12 outdoor projects at the moment.</p>
                     </div>
                 </VistaWindow>
             </div>
