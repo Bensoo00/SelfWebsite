@@ -5,7 +5,7 @@ import VistaWindow from '../VistaWindow';
 export default function ExperiencePage() {
     return (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-5">
-            <VistaWindow title="System Administrator - PJM Interconnection (via Yoh)" icon={Briefcase} className="lg:col-span-7">
+            <VistaWindow title="System Administrator — PJM (via Yoh)" icon={Briefcase} className="lg:col-span-7">
                 <div className="space-y-3">
                     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 mb-4">
                         <h3 className="text-base font-bold text-gray-800">PJM Interconnection</h3>
@@ -22,7 +22,7 @@ export default function ExperiencePage() {
                 </div>
             </VistaWindow>
 
-            <VistaWindow title="Information Technology Specialist - UPenn School of Nursing" icon={Briefcase} className="lg:col-span-5">
+            <VistaWindow title="IT Specialist — UPenn School of Nursing" icon={Briefcase} className="lg:col-span-5">
                 <div className="space-y-3">
                     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 mb-4">
                         <h3 className="text-base font-bold text-gray-800">University of Pennsylvania School of Nursing</h3>

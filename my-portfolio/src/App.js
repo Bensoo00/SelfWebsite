@@ -6,6 +6,8 @@ import HomePage from './pages/HomePage';
 import ExperiencePage from './pages/ExperiencePage';
 import ProjectsPage from './pages/ProjectsPage';
 import BotControlPage from './BotControlPage';
+import DesktopIcons from './DesktopIcons';
+import SidebarGadgets from './SidebarGadgets';
 import { themeForPath } from './themes';
 import { SpeedInsights } from "@vercel/speed-insights/react"
 import './App.css';
@@ -199,6 +201,10 @@ export default function Portfolio() {
 
             {/* Frutiger Aero Background Effects */}
             <AmbientEffects ambient={theme.ambient} />
+
+            {/* Wide-screen side decorations */}
+            <DesktopIcons />
+            <SidebarGadgets />
 
             {/* Floating Dock Navigation — fixed bottom-center, follows scroll */}
             <nav className="fixed left-1/2 -translate-x-1/2 z-50"

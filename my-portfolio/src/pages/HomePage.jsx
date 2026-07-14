@@ -1,5 +1,5 @@
 import React from 'react';
-import { Code, Settings, User, GraduationCap, FileText, Github, Mail, Linkedin } from 'lucide-react';
+import { Code, Settings, User, GraduationCap, FileText, Github, Mail, Linkedin, Monitor, Cloud, Briefcase, Flower2 } from 'lucide-react';
 import VistaWindow from '../VistaWindow';
 
 const linkStyle = {
@@ -70,24 +70,66 @@ export default function HomePage() {
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <VistaWindow title="Programming" icon={Code}>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <VistaWindow title="IT Support" icon={Monitor}>
                             <div className="p-3 rounded-2xl shadow-lg border backdrop-blur-sm">
-                                <p className="text-gray-700 text-sm">Python, GoLang, Java, C, Bash, SQL, Assembly</p>
+                                <p className="text-gray-700 text-sm">macOS, Windows 10/11, System Imaging &amp; Deployment, Microsoft 365, Crestron AV, TCP/IP, Cherwell/Halo ITSM</p>
                             </div>
                         </VistaWindow>
 
-                        <VistaWindow title="Tools" icon={Settings}>
+                        <VistaWindow title="Automation & Scripting" icon={Code}>
                             <div className="p-3 rounded-2xl shadow-lg border backdrop-blur-sm">
-                                <p className="text-gray-700 text-sm">AWS, Git, Agile, Scrum, Jira</p>
+                                <p className="text-gray-700 text-sm">Python, Bash, YAML, SQL, Ansible &amp; Ansible Automation Platform (AAP)</p>
                             </div>
                         </VistaWindow>
 
-                        <VistaWindow title="Education" icon={GraduationCap}>
+                        <VistaWindow title="Cloud & Systems" icon={Cloud}>
                             <div className="p-3 rounded-2xl shadow-lg border backdrop-blur-sm">
-                                <p className="text-gray-700 text-sm">Drexel University - Software Engineering BS</p>
+                                <p className="text-gray-700 text-sm">AWS, Red Hat Enterprise Linux (RHEL), GitHub CI/CD</p>
                             </div>
                         </VistaWindow>
+
+                        <VistaWindow title="Collaboration" icon={Settings}>
+                            <div className="p-3 rounded-2xl shadow-lg border backdrop-blur-sm">
+                                <p className="text-gray-700 text-sm">Google Workspace, Slack, Jira, Confluence (Atlassian)</p>
+                            </div>
+                        </VistaWindow>
+
+                        <VistaWindow title="Education" icon={GraduationCap} className="md:col-span-2">
+                            <div className="p-3 rounded-2xl shadow-lg border backdrop-blur-sm">
+                                <p className="text-gray-700 text-sm">
+                                    Drexel University — B.S. Computer Science (Sept 2022 – Sept 2026)
+                                    <br />
+                                    Relevant coursework: Data Structures, Systems Programming, Databases, Artificial Intelligence
+                                </p>
+                            </div>
+                        </VistaWindow>
+                    </div>
+                </VistaWindow>
+            </div>
+
+            {/* Currently + Beyond the Code */}
+            <div className="mb-6 grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-5">
+                <VistaWindow title="Currently" icon={Briefcase} className="lg:col-span-7">
+                    <div className="p-1 space-y-2 text-sm text-gray-700">
+                        <p>
+                            <span className="font-bold text-gray-800">System Administrator co-op</span> at PJM Interconnection (via Yoh),
+                            automating RHEL infrastructure with Ansible and Python.
+                        </p>
+                        <p>
+                            Finishing my <span className="font-bold text-gray-800">B.S. in Computer Science at Drexel University</span> (September 2026).
+                        </p>
+                        <p className="text-gray-600">
+                            Open to full-time software engineering and systems roles starting late 2026.
+                        </p>
+                    </div>
+                </VistaWindow>
+
+                <VistaWindow title="Beyond the Code" icon={Flower2} className="lg:col-span-5">
+                    <div className="p-1 space-y-2 text-sm text-gray-700">
+                        <p>Houseplant collector with a growing jungle of them.</p>
+                        <p>Hiker — the reason the gear recommendation app exists.</p>
+                        <p>Trading card vendor on weekends, which inspired Vendor Buddy.</p>
                     </div>
                 </VistaWindow>
             </div>

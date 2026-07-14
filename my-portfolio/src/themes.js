@@ -16,7 +16,7 @@ export const themes = {
         background: "url('/bg-experience.jpg')",
         ambient: 'grass',
         vars: {
-            '--vista-titlebar-tint': 'linear-gradient(180deg, rgba(142,214,132,0.55) 0%, rgba(85,168,74,0.55) 100%)',
+            '--vista-titlebar-tint': 'linear-gradient(180deg, rgba(110,190,100,0.7) 0%, rgba(58,130,48,0.75) 100%)',
             '--vista-frame-bg': 'linear-gradient(180deg, rgba(255,255,255,0.35) 0%, rgba(198,240,190,0.24) 100%)',
             '--vista-btn': 'linear-gradient(180deg, #8ed684 0%, #55a84a 49%, #46903c 50%, #33702c 100%)',
         },
@@ -25,7 +25,7 @@ export const themes = {
         background: "url('/bg-projects.jpg')",
         ambient: 'water',
         vars: {
-            '--vista-titlebar-tint': 'linear-gradient(180deg, rgba(84,208,222,0.55) 0%, rgba(32,148,178,0.55) 100%)',
+            '--vista-titlebar-tint': 'linear-gradient(180deg, rgba(50,180,200,0.7) 0%, rgba(18,110,140,0.75) 100%)',
             '--vista-frame-bg': 'linear-gradient(180deg, rgba(255,255,255,0.35) 0%, rgba(170,235,242,0.24) 100%)',
             '--vista-btn': 'linear-gradient(180deg, #54d0de 0%, #2094b2 49%, #197f9c 50%, #12617a 100%)',
         },

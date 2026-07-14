@@ -153,15 +153,20 @@ export default function VistaWindow({
                         }}
                     >
                         {/* Left side - Icon and Title */}
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', pointerEvents: 'none' }}>
-                            {Icon && <Icon style={{ width: '16px', height: '16px', color: 'white' }} />}
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', pointerEvents: 'none', minWidth: 0, flex: 1, marginRight: '8px' }}>
+                            {Icon && <Icon style={{ width: '16px', height: '16px', color: 'white', flexShrink: 0, filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.5))' }} />}
                             <span
+                                title={title}
                                 style={{
                                     color: 'white',
                                     fontSize: '13px',
                                     fontWeight: '600',
-                                    textShadow: '0 1px 2px rgba(0, 0, 0, 0.3)',
-                                    fontFamily: 'Segoe UI, Tahoma, sans-serif'
+                                    textShadow: '0 1px 3px rgba(0, 0, 0, 0.65), 0 0 8px rgba(0, 0, 0, 0.25)',
+                                    fontFamily: 'Segoe UI, Tahoma, sans-serif',
+                                    minWidth: 0,
+                                    whiteSpace: 'nowrap',
+                                    overflow: 'hidden',
+                                    textOverflow: 'ellipsis',
                                 }}
                             >
                 {title}
@@ -169,7 +174,7 @@ export default function VistaWindow({
                         </div>
 
                         {/* Right side - Window Controls (they shouldn't start a drag) */}
-                        <div style={{ display: 'flex', gap: '2px' }} onPointerDown={stopDrag}>
+                        <div style={{ display: 'flex', gap: '2px', flexShrink: 0 }} onPointerDown={stopDrag}>
                             {/* Minimize Button */}
                             <button
                                 className="vista-control-btn"
