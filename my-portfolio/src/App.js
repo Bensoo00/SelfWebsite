@@ -1,10 +1,18 @@
 import React, { useState } from 'react';
-import { Terminal, Activity, Code, Briefcase, Mail, Linkedin, TrendingUp, Droplets, Sparkles, Sun, Cloud, Settings, User, GraduationCap, Mountain, FileText, Github, Store } from 'lucide-react';
+import { Terminal, Activity, Code, Briefcase, Mail, Linkedin, TrendingUp, Droplets, Sparkles, Sun, Cloud, Settings, User, GraduationCap, Mountain, FileText, Github, Store, FolderOpen, Bot } from 'lucide-react';
+
 import IntegratedTradingBot from './IntegratedTradingBot';
 import BotControlPage from './BotControlPage';
 import VistaWindow from './VistaWindow';
 import { SpeedInsights } from "@vercel/speed-insights/react"
 import './App.css';
+
+const navItems = [
+    { label: 'About', icon: User, href: '#about' },
+    { label: 'Experience', icon: Briefcase, href: '#experience' },
+    { label: 'Projects', icon: FolderOpen, href: '#projects' },
+    { label: 'Bot Control', icon: Bot, page: 'bot-control' },
+];
 
 export default function Portfolio() {
     // ============================================
@@ -54,58 +62,76 @@ export default function Portfolio() {
                 <Cloud className="absolute bottom-1/2 right-1/3 w-12 h-12 text-white/40 animate-pulse" style={{ animationDelay: '2.5s' }} />
             </div>
 
-            {/* Navigation Bar */}
-            <nav className="relative z-10 backdrop-blur-md border-b shadow-lg"
-                 style={{
-                     background: 'transparent',
-                     borderBottom: '1px solid rgba(255,255,255,0.8)',
-                     boxShadow: '0 4px 30px rgba(0,0,0,0.1)',
-                     overflow: 'hidden',
-                     borderRadius: '7px 7px 6px 6px',
-                     position: 'relative',
-                 }}>
-                <div className="max-w-7xl mx-auto px-4 md:px-8 py-2">
-                    <div className="flex items-center justify-between gap-3 flex-wrap">
-                        <div className="flex items-center gap-3 cursor-pointer" onClick={() => setCurrentPage('home')}>
-                            <div className="w-10 h-10 md:w-16 md:h-16 rounded-full flex items-center justify-center shadow-2xl relative overflow-hidden">
-                                <img src="/vista.jpg" alt="bennguyen.net logo" className="relative z-10" style={{
-                                    height: '100%',
-                                    width: '100%',
-                                    position: 'absolute',
-                                }}/>
-                                <Code className="w-6 h-6 text-white" />
-                            </div>
-                            <div className="hidden sm:block text-gray-700 font-semibold hover:text-blue-500 transition-colors text-lg md:text-2xl" style={{
-                                fontFamily: "Segoe UI",
-                            }}>
-                                bennguyen.net
-                            </div>
-                        </div>
+            {/* Floating Dock Navigation — fixed top-center, follows scroll */}
+            <nav className="fixed top-3 md:top-4 left-1/2 -translate-x-1/2 z-50" style={{ fontFamily: 'Segoe UI, Tahoma, sans-serif' }}>
+                <div className="relative flex items-center gap-1 sm:gap-2 px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-3xl"
+                     style={{
+                         background: 'linear-gradient(180deg, rgba(255,255,255,0.65) 0%, rgba(190,225,245,0.4) 55%, rgba(122,199,227,0.4) 100%)',
+                         border: '1px solid rgba(255,255,255,0.85)',
+                         boxShadow: '0 12px 40px rgba(20,60,100,0.3), 0 0 0 1px rgba(255,255,255,0.25), inset 0 1px 0 rgba(255,255,255,0.9)',
+                         backdropFilter: 'blur(14px)',
+                         WebkitBackdropFilter: 'blur(14px)',
+                     }}>
+                    {/* Glossy aero highlight over the top half */}
+                    <div className="absolute inset-x-1 top-0.5 h-1/2 rounded-t-3xl pointer-events-none"
+                         style={{ background: 'linear-gradient(180deg, rgba(255,255,255,0.75) 0%, rgba(255,255,255,0.05) 100%)' }} />
 
-                        <div className="flex gap-4 md:gap-8 text-base md:text-xl" style={{
-                            fontFamily: "Segoe UI",
-                        }}>
-                            <a href="#about" onClick={() => setCurrentPage('home')} className="text-gray-700 hover:text-blue-500 transition-colors font-semibold">About</a>
-                            <a href="#experience" onClick={() => setCurrentPage('home')} className="text-gray-700 hover:text-blue-500 transition-colors font-semibold">Experience</a>
-                            <a href="#projects" onClick={() => setCurrentPage('home')} className="text-gray-700 hover:text-blue-500 transition-colors font-semibold">Projects</a>
-                            <button onClick={() => setCurrentPage('bot-control')} className={`${currentPage === 'bot-control' ? 'text-blue-500' : 'text-gray-700'} hover:text-blue-500 transition-colors font-semibold flex items-center gap-2`}>
-                                Bot Control
+                    {/* Logo — back to top / home */}
+                    <button
+                        onClick={() => { setCurrentPage('home'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                        aria-label="Home"
+                        className="relative flex flex-col items-center gap-0.5 px-1.5 sm:px-2 py-1 rounded-2xl transition-all duration-200 hover:scale-110 hover:-translate-y-1"
+                    >
+                        <span className="w-8 h-8 sm:w-10 sm:h-10 rounded-full overflow-hidden shadow-lg block relative"
+                              style={{ boxShadow: '0 3px 10px rgba(20,60,100,0.35), inset 0 0 6px rgba(255,255,255,0.5)' }}>
+                            <img src="/vista.jpg" alt="bennguyen.net logo" className="w-full h-full object-cover" />
+                        </span>
+                        <span className="text-[10px] sm:text-xs font-semibold text-gray-700">Home</span>
+                    </button>
+
+                    <div className="w-px h-8 sm:h-10 mx-0.5 sm:mx-1" style={{ background: 'linear-gradient(180deg, transparent, rgba(30,90,140,0.35), transparent)' }} />
+
+                    {navItems.map(({ label, icon: ItemIcon, href, page }) => {
+                        const isActive = page ? currentPage === page : false;
+                        const classes = `relative flex flex-col items-center gap-0.5 px-1.5 sm:px-2.5 py-1 rounded-2xl transition-all duration-200 hover:scale-110 hover:-translate-y-1 ${isActive ? 'text-blue-600' : 'text-gray-700'} hover:text-blue-600`;
+                        const inner = (
+                            <>
+                                <span className="w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center shadow-lg"
+                                      style={{
+                                          background: isActive
+                                              ? 'linear-gradient(180deg, #84c6d9 0%, #4a95b8 49%, #3d7ea0 50%, #2a6888 100%)'
+                                              : 'linear-gradient(180deg, rgba(255,255,255,0.9) 0%, rgba(200,230,245,0.8) 100%)',
+                                          border: '1px solid rgba(255,255,255,0.8)',
+                                          boxShadow: '0 3px 10px rgba(20,60,100,0.25), inset 0 1px 0 rgba(255,255,255,0.8)',
+                                      }}>
+                                    <ItemIcon className={`w-4 h-4 sm:w-5 sm:h-5 ${isActive ? 'text-white' : 'text-sky-700'}`} />
+                                </span>
+                                <span className="text-[10px] sm:text-xs font-semibold">{label}</span>
+                            </>
+                        );
+                        return page ? (
+                            <button key={label} onClick={() => setCurrentPage(page)} className={classes} aria-label={label}>
+                                {inner}
                             </button>
-                        </div>
-                    </div>
+                        ) : (
+                            <a key={label} href={href} onClick={() => setCurrentPage('home')} className={classes} aria-label={label}>
+                                {inner}
+                            </a>
+                        );
+                    })}
                 </div>
             </nav>
 
             {/* Main Content */}
             {currentPage === 'bot-control' ? (
-                <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 py-8 md:py-12">
+                <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 pt-28 md:pt-32 pb-8 md:pb-12">
                     <BotControlPage />
                 </div>
             ) : (
-            <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 py-8 md:py-12">
+            <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 pt-28 md:pt-32 pb-8 md:pb-12">
 
                 {/* About Me Section */}
-                <div id="about" className="mb-8">
+                <div id="about" className="mb-8 scroll-mt-28 md:scroll-mt-32">
                     <VistaWindow title="About Me" icon={User}>
                         <div className="flex flex-col md:flex-row items-center gap-6 md:gap-8 mb-8 text-center md:text-left">
                             <div className="w-28 h-28 md:w-36 md:h-36 flex-shrink-0 rounded-full flex items-center justify-center shadow-2xl relative overflow-hidden"
@@ -196,7 +222,7 @@ export default function Portfolio() {
                 </div>
 
                 {/* Experience Section */}
-                <div id="experience" className="mb-8">
+                <div id="experience" className="mb-8 scroll-mt-28 md:scroll-mt-32">
                     <div className="space-y-6">
                         <VistaWindow title="System Administrator - PJM Interconnection (via Yoh)" icon={Briefcase}>
                             <div className="space-y-3">
@@ -252,7 +278,7 @@ export default function Portfolio() {
                 </div>
 
                 {/* Projects Section */}
-                <div id="projects" className="mb-8">
+                <div id="projects" className="mb-8 scroll-mt-28 md:scroll-mt-32">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
                         {/* Hiking Gear Recommender */}
                         <VistaWindow title="Hiking Gear Recommender" icon={Mountain}>
