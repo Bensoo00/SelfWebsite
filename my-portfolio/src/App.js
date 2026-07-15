@@ -8,8 +8,6 @@ import ProjectsPage from './pages/ProjectsPage';
 import BotControlPage from './BotControlPage';
 import DesktopIcons from './DesktopIcons';
 import SidebarGadgets from './SidebarGadgets';
-import AnimatedBackdrop from './AnimatedBackdrop';
-import VideoWallpaper from './VideoWallpaper';
 import { themeForPath } from './themes';
 import { SpeedInsights } from "@vercel/speed-insights/react"
 import './App.css';
@@ -128,25 +126,6 @@ export default function Portfolio() {
     const navigate = useNavigate();
     const theme = themeForPath(location.pathname);
 
-    // Toggle between CSS living wallpapers and video loops (same JPGs, Ken Burns) for local evaluation.
-    // Start with ?wallpaper=video in the URL, or use the on-screen switcher (persists in localStorage).
-    const [wallpaperMode, setWallpaperMode] = useState(() => {
-        if (typeof window === 'undefined') return 'css';
-        const fromUrl = new URLSearchParams(window.location.search).get('wallpaper');
-        if (fromUrl === 'video' || fromUrl === 'css') return fromUrl;
-        return localStorage.getItem('wallpaperMode') || 'css';
-    });
-
-    const toggleWallpaperMode = () => {
-        setWallpaperMode((prev) => {
-            const next = prev === 'css' ? 'video' : 'css';
-            localStorage.setItem('wallpaperMode', next);
-            return next;
-        });
-    };
-
-    const posterSrc = theme.background.match(/url\(['"]?([^'"]+)/)?.[1];
-
     // Vista-style boot screen shown on load: 'booting' -> 'fading' -> 'done'.
     // Skipped entirely for users who prefer reduced motion.
     const [bootStage, setBootStage] = useState(() =>
@@ -181,47 +160,17 @@ export default function Portfolio() {
 
     return (
         <div
-            className="relative overflow-hidden min-h-screen"
-            style={theme.vars}
+            className="relative overflow-hidden bg-cover bg-center"
+            style={{
+                backgroundImage: theme.background,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+                minHeight: "100vh",
+                transition: 'background-image 0.4s ease',
+                ...theme.vars,
+            }}
         >
-            {/* Wallpaper: CSS living layers OR AI video loops */}
-            <div className="wallpaper-stack" aria-hidden="true">
-                {wallpaperMode === 'video' ? (
-                    <VideoWallpaper
-                        key={location.pathname}
-                        webm={theme.video}
-                        mp4={theme.videoMp4}
-                        poster={posterSrc}
-                    />
-                ) : (
-                    <>
-                        <div
-                            className="wallpaper-base"
-                            style={{ backgroundImage: theme.background }}
-                        />
-                        <AnimatedBackdrop ambient={theme.ambient} />
-                    </>
-                )}
-            </div>
-
-            {/* Dev preview toggle — compare CSS vs video wallpapers locally */}
-            <button
-                type="button"
-                onClick={toggleWallpaperMode}
-                className="fixed left-3 z-[60] px-3 py-1.5 rounded-full text-xs font-semibold shadow-lg transition-all hover:scale-105"
-                style={{
-                    bottom: 'calc(4.5rem + env(safe-area-inset-bottom, 0px))',
-                    fontFamily: 'Segoe UI, Tahoma, sans-serif',
-                    background: 'linear-gradient(180deg, rgba(255,255,255,0.85) 0%, rgba(200,230,245,0.7) 100%)',
-                    border: '1px solid rgba(255,255,255,0.9)',
-                    color: '#334155',
-                    backdropFilter: 'blur(10px)',
-                }}
-                title="Toggle between CSS overlays and Ken Burns video (same background images)"
-            >
-                Wallpaper: {wallpaperMode === 'css' ? 'CSS' : 'Video'}
-            </button>
-
             {/* Vista Boot Screen */}
             {bootStage !== 'done' && (
                 <div
@@ -250,12 +199,8 @@ export default function Portfolio() {
                 </div>
             )}
 
-            {/* Frutiger Aero Background Effects (CSS mode only — keeps video preview clean) */}
-            {wallpaperMode === 'css' && (
-            <div className="fixed inset-0 z-[1] overflow-hidden pointer-events-none">
-                <AmbientEffects ambient={theme.ambient} />
-            </div>
-            )}
+            {/* Frutiger Aero Background Effects */}
+            <AmbientEffects ambient={theme.ambient} />
 
             {/* Wide-screen side decorations */}
             <DesktopIcons />
