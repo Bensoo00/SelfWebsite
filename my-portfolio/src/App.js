@@ -160,18 +160,23 @@ export default function Portfolio() {
 
     return (
         <div
-            className="relative overflow-hidden bg-cover bg-center"
+            className="relative min-h-screen"
             style={{
-                backgroundImage: theme.background,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                backgroundRepeat: "no-repeat",
-                minHeight: "100vh",
                 transition: 'background-image 0.4s ease',
                 ...theme.vars,
             }}
         >
-            {/* Vista Boot Screen */}
+            {/* Fixed wallpaper — stays viewport-sized when page content grows */}
+            <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none" aria-hidden="true">
+                <div
+                    className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                    style={{
+                        backgroundImage: theme.background,
+                        transition: 'background-image 0.4s ease',
+                    }}
+                />
+                <AmbientEffects ambient={theme.ambient} />
+            </div>
             {bootStage !== 'done' && (
                 <div
                     className="fixed inset-0 z-[100] bg-black flex flex-col items-center justify-center cursor-pointer select-none"
@@ -198,9 +203,6 @@ export default function Portfolio() {
                     <p className="absolute bottom-8 text-gray-600 text-xs">&copy; 2026 Benjamin Nguyen</p>
                 </div>
             )}
-
-            {/* Frutiger Aero Background Effects */}
-            <AmbientEffects ambient={theme.ambient} />
 
             {/* Wide-screen side decorations */}
             <DesktopIcons />
