@@ -1,10 +1,13 @@
 // Per-route Frutiger Aero themes.
 // `vars` are CSS custom properties read by VistaWindow (with blue fallbacks),
 // so windows re-skin themselves based on which page they're rendered on.
+// `video` / `videoMp4` are 12s Ken Burns loops generated from each route's `background` JPG.
 
 export const themes = {
     '/': {
         background: "url('/future2.jpg')",
+        video: '/wallpapers/sky.webm',
+        videoMp4: '/wallpapers/sky.mp4',
         ambient: 'sky',
         vars: {
             '--vista-titlebar-tint': 'linear-gradient(180deg, rgba(122,199,227,0.5) 0%, rgba(74,149,184,0.5) 100%)',
@@ -14,6 +17,8 @@ export const themes = {
     },
     '/experience': {
         background: "url('/bg-experience.jpg')",
+        video: '/wallpapers/grass.webm',
+        videoMp4: '/wallpapers/grass.mp4',
         ambient: 'grass',
         vars: {
             '--vista-titlebar-tint': 'linear-gradient(180deg, rgba(110,190,100,0.7) 0%, rgba(58,130,48,0.75) 100%)',
@@ -23,6 +28,8 @@ export const themes = {
     },
     '/projects': {
         background: "url('/bg-projects.jpg')",
+        video: '/wallpapers/water.webm',
+        videoMp4: '/wallpapers/water.mp4',
         ambient: 'water',
         vars: {
             '--vista-titlebar-tint': 'linear-gradient(180deg, rgba(50,180,200,0.7) 0%, rgba(18,110,140,0.75) 100%)',
@@ -32,6 +39,8 @@ export const themes = {
     },
     '/bot-control': {
         background: "url('/bg-botcontrol.jpg')",
+        video: '/wallpapers/night.webm',
+        videoMp4: '/wallpapers/night.mp4',
         ambient: 'night',
         vars: {
             '--vista-titlebar-tint': 'linear-gradient(180deg, rgba(74,110,152,0.6) 0%, rgba(34,58,92,0.6) 100%)',

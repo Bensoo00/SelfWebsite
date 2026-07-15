@@ -6,6 +6,14 @@
    Living wallpapers — CSS motion on static JPGs
    ============================================ */
 
+.wallpaper-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .wallpaper-stack {
   position: fixed;
   inset: 0;
