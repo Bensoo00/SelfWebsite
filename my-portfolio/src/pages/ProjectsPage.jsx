@@ -43,22 +43,28 @@ function MetricBadge({ value, label }) {
 
 const projects = [
     {
-        id: 'hiking-gear',
-        title: 'Hiking Gear Recommender',
+        id: 'baseweight',
+        title: 'Baseweight',
         icon: Mountain,
         duration: 'Ongoing',
         period: '2025 – Present',
-        tech: ['Flask', 'React', 'PostgreSQL', 'Claude API', 'OpenWeather'],
-        concepts: ['Full-stack', 'LLM integration', 'Weather-aware recommendations', 'REST APIs'],
+        tech: ['React', 'Flask', 'PostgreSQL', 'Claude API'],
+        concepts: ['Pack lists', 'Gear inventory', 'Trip journaling', 'Community shakedowns'],
         summary:
-            'Full-stack gear recommendation app — enter trip parameters and get a ranked kit based on destination, duration, and live weather.',
+            'base-weight.net — a LighterPack alternative for ultralight hikers. Build packs, track base weight, journal trail lessons, and share community shakedowns. Grew out of my Hiking Gear Recommender prototype.',
         bullets: [
-            'Built a Flask backend with PostgreSQL for gear catalogs and trip profiles',
-            'Integrated the Claude API to rank and explain gear choices from natural-language trip inputs',
-            'Pulled live weather data to weight recommendations by forecast conditions',
-            'React frontend for trip planning flows and shareable packing lists',
+            'Shipped pack lists with base-weight math, worn vs packed items, and trip assignment when you need it',
+            'Built a personal gear locker so kit is added once and reused across packs',
+            'Added trip journaling for what worked on trail, plus community shakedowns you can read, comment on, and clone',
+            'Pack coach shortlists gear from constraints — evolved from the earlier Claude-powered recommender',
         ],
         links: [
+            {
+                label: 'Visit Site',
+                href: 'https://base-weight.net',
+                icon: Globe,
+                gradient: 'linear-gradient(135deg, #11998e 0%, #38ef7d 100%)',
+            },
             {
                 label: 'View Code',
                 href: 'https://github.com/Bensoo00/HikingGearRecommendations',
